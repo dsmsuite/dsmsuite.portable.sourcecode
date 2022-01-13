@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DsmSuite.Viewer.View", "DsmSuite.DsmViewer.View\DsmSuite.Viewer.View.csproj", "{8D0EDF6B-0A5D-4889-9781-A849DDB6E932}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DsmSuite.DsmViewer.ViewModel", "DsmSuite.DsmViewer.ViewModel\DsmSuite.DsmViewer.ViewModel.csproj", "{1A2CB38B-E525-4382-AC29-A661ACB6238A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D0EDF6B-0A5D-4889-9781-A849DDB6E932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D0EDF6B-0A5D-4889-9781-A849DDB6E932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D0EDF6B-0A5D-4889-9781-A849DDB6E932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D0EDF6B-0A5D-4889-9781-A849DDB6E932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A2CB38B-E525-4382-AC29-A661ACB6238A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A2CB38B-E525-4382-AC29-A661ACB6238A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A2CB38B-E525-4382-AC29-A661ACB6238A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A2CB38B-E525-4382-AC29-A661ACB6238A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FD99A8B-8584-4111-8F79-3DBF426D138A}
+	EndGlobalSection
+EndGlobal
