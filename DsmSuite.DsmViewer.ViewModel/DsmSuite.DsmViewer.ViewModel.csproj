@@ -10,4 +10,10 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.11" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DsmSuite.Common.Model\DsmSuite.Common.Model.csproj" />
+    <ProjectReference Include="..\DsmSuite.Common.Util\DsmSuite.Common.Util.csproj" />
+    <ProjectReference Include="..\DsmSuite.DsmViewer.Application\DsmSuite.DsmViewer.Application.csproj" />
+    <ProjectReference Include="..\DsmSuite.DsmViewer.Model\DsmSuite.DsmViewer.Model.csproj" />
+  </ItemGroup>
 </Project>

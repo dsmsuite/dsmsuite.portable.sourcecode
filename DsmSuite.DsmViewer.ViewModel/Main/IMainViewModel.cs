@@ -1,0 +1,32 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Input;
+using DsmSuite.DsmViewer.Model.Interfaces;
+using DsmSuite.DsmViewer.ViewModel.Lists;
+
+namespace DsmSuite.DsmViewer.ViewModel.Main
+{
+    public interface IMainViewModel : INotifyPropertyChanged
+    {
+        void NotifyElementsReportReady(ElementListViewModelType viewModelType, IDsmElement selectedConsumer, IDsmElement selectedProvider);
+        void NotifyRelationsReportReady(RelationsListViewModelType viewModelType, IDsmElement selectedConsumer, IDsmElement selectedProvider);
+
+        ICommand ToggleElementExpandedCommand { get; }
+        ICommand MoveUpElementCommand { get; }
+        ICommand MoveDownElementCommand { get; }
+
+        ICommand ToggleElementBookmarkCommand { get; }
+
+        ICommand SortElementCommand { get; }
+        ICommand ShowElementDetailMatrixCommand { get; }
+        ICommand ShowElementContextMatrixCommand { get; }
+        ICommand ShowCellDetailMatrixCommand { get; }
+
+        ICommand AddElementCommand { get; }
+        ICommand ModifyElementCommand { get; }
+        ICommand DeleteElementCommand { get; }
+        ICommand ChangeElementParentCommand { get; }
+
+        IndicatorViewMode SelectedIndicatorViewMode { get; }
+    }
+}

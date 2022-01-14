@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DsmSuite.Analyzer.Model\DsmSuite.Analyzer.Model.csproj" />
+    <ProjectReference Include="..\DsmSuite.Common.Model\DsmSuite.Common.Model.csproj" />
+    <ProjectReference Include="..\DsmSuite.Common.Util\DsmSuite.Common.Util.csproj" />
+    <ProjectReference Include="..\DsmSuite.DsmViewer.Model\DsmSuite.DsmViewer.Model.csproj" />
+  </ItemGroup>
+
+</Project>
