@@ -22,4 +22,45 @@
     <ProjectReference Include="..\DsmSuite.DsmViewer.Application\DsmSuite.DsmViewer.Application.csproj" />
     <ProjectReference Include="..\DsmSuite.DsmViewer.ViewModel\DsmSuite.DsmViewer.ViewModel.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Editing\ElementEditDialog.axaml.cs">
+      <DependentUpon>ElementEditDialog.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Editing\RelationEditDialog.axaml.cs">
+      <DependentUpon>RelationEditDialog.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Editing\SnapshotCreateDialog.axaml.cs">
+      <DependentUpon>SnapshotCreateDialog.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Lists\RelationListView.axaml.cs">
+      <DependentUpon>RelationListView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Lists\ElementListView.axaml.cs">
+      <DependentUpon>ElementListView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Lists\ActionListView.axaml.cs">
+      <DependentUpon>ActionListView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Matrix\MatrixView.axaml.cs">
+      <DependentUpon>MatrixView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Matrix\MatrixTopCornerView.axaml.cs">
+      <DependentUpon>MatrixTopCornerView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Matrix\MatrixMetricsSelectorView.axaml.cs">
+      <DependentUpon>MatrixMetricsSelectorView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Settings\SettingsDialog.axaml.cs">
+      <DependentUpon>SettingsDialog.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserControls\ElementSearchBox.axaml.cs">
+      <DependentUpon>ElementSearchBox.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserControls\LegendView.axaml.cs">
+      <DependentUpon>LegendView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Windows\ProgressWindow.axaml.cs">
+      <DependentUpon>ProgressWindow.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
