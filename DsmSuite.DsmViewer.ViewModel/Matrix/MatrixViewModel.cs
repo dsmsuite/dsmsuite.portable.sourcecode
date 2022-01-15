@@ -41,7 +41,6 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
         private readonly Dictionary<MetricType, string> _metricTypeNames;
         private string _selectedMetricTypeName;
         private MetricType _selectedMetricType;
-        private string _searchText = "";
 
         public MatrixViewModel(IMainViewModel mainViewModel, IDsmApplication application, IEnumerable<IDsmElement> selectedElements)
         {

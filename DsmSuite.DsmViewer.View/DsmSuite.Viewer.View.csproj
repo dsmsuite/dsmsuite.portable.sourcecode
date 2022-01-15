@@ -16,6 +16,10 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DsmSuite.Analyzer.Model\DsmSuite.Analyzer.Model.csproj" />
+    <ProjectReference Include="..\DsmSuite.Common.Model\DsmSuite.Common.Model.csproj" />
+    <ProjectReference Include="..\DsmSuite.Common.Util\DsmSuite.Common.Util.csproj" />
+    <ProjectReference Include="..\DsmSuite.DsmViewer.Application\DsmSuite.DsmViewer.Application.csproj" />
     <ProjectReference Include="..\DsmSuite.DsmViewer.ViewModel\DsmSuite.DsmViewer.ViewModel.csproj" />
   </ItemGroup>
 </Project>
