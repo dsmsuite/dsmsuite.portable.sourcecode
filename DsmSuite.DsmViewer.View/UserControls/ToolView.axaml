@@ -4,5 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DsmSuite.Viewer.View.UserControls.ToolView">
-  Welcome to ToolView!
+
+  <Grid ColumnDefinitions="Auto,*,80,80" RowDefinitions="*" >
+    <Label Grid.Column="2" Content="label" Width="80" Height="30"/>
+    <Button Grid.Column="3" Classes="toolbar" Command="{Binding ShowSettingsCommand}" Content="button" Width="80" Height="30"/>
+  </Grid> 
 </UserControl>

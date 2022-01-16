@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using DsmSuite.Viewer.View.UserControls;
 
 namespace DsmSuite.Viewer.View.Views
 {

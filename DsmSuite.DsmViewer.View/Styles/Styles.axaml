@@ -1,0 +1,19 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+          <StackPanel>
+            <Button Classes="toolbar">I'm a  toolbar button!</Button>
+            <ComboBox Classes="toolbar">I'm a  toolbar combobox!</ComboBox>
+          </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Button.toolbar">
+      <Setter Property="Background" Value="Yellow"/> 
+    </Style>
+
+    <Style Selector="ComboBox.toolbar">
+      <Setter Property="Background" Value="Yellow"/>
+    </Style>
+</Styles>
