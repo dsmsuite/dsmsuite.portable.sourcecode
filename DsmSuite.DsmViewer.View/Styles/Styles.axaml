@@ -1,19 +1,94 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Design.PreviewWith>
-        <Border Padding="20">
-          <StackPanel>
-            <Button Classes="toolbar">I'm a  toolbar button!</Button>
-            <ComboBox Classes="toolbar">I'm a  toolbar combobox!</ComboBox>
-          </StackPanel>
-        </Border>
-    </Design.PreviewWith>
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        >
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <StackPanel Orientation="Horizontal">
+        <Label Classes="toolbar">I'm a  toolbar label!</Label>
+        <Separator Classes="toolbar" />
+        <Button Classes="toolbar">I'm a  toolbar button!</Button>
+        <ComboBox Classes="toolbar">I'm a  toolbar combobox!</ComboBox>
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
 
-    <Style Selector="Button.toolbar">
-      <Setter Property="Background" Value="Yellow"/> 
-    </Style>
+  <Styles.Resources>
+    <system:Double x:Key="StandardFontSize">14.0</system:Double>
+    <system:Double x:Key="LargeFontSize">16.0</system:Double>
+    <system:Double x:Key="StandardEditControlHeight">26.0</system:Double>
 
-    <Style Selector="ComboBox.toolbar">
-      <Setter Property="Background" Value="Yellow"/>
-    </Style>
+    <system:Double x:Key="StandardButtonSize">24.0</system:Double>
+    <system:Double x:Key="ExpandButtonSize">20.0</system:Double>
+    <system:Double x:Key="MatrixCellSize">24.0</system:Double>
+    <system:Double x:Key="MatrixHeaderHeight">60.0</system:Double>
+    <system:Double x:Key="MatrixMetricsViewWidth">120.0</system:Double>
+
+    <system:Double x:Key="HighlightFactorHovered" >1.1</system:Double>
+    <system:Double x:Key="HighlightFactorSelected" >1.2</system:Double>
+
+    <system:String x:Key="LeftArrowIcon">&#x25C0;</system:String>
+    <system:String x:Key="RightArrowIcon">&#x25B6;</system:String>
+    <system:String x:Key="UpArrowIcon">&#x25B2;</system:String>
+    <system:String x:Key="DownArrowIcon">&#x25BC;</system:String>
+
+    <system:String x:Key="MinimizeAppIcon">&#xE949;</system:String>
+    <system:String x:Key="MaximizeAppIcon">&#xE739;</system:String>
+    <system:String x:Key="CloseAppIcon">&#xE106;</system:String>
+
+    <GridLength x:Key="TitleBarHeight">40</GridLength>
+    <GridLength x:Key="TitleHeight">40</GridLength>
+    <GridLength x:Key="SubTitleHeight">40</GridLength>
+    <GridLength x:Key="EditFieldHeight">40</GridLength>
+    <GridLength x:Key="HelpFieldHeight">40</GridLength>
+    <GridLength x:Key="ButtonRowHeight">40</GridLength>
+    <GridLength x:Key="BottomRowHeight">20</GridLength>
+
+    <SolidColorBrush x:Key="TextColor" >#4b3d38</SolidColorBrush>
+    <SolidColorBrush x:Key="ErrorTextColor" >#d24432</SolidColorBrush>
+    <SolidColorBrush x:Key="SearchNoMatchTextColor" >#d24432</SolidColorBrush>
+    <SolidColorBrush x:Key="SearchMatchTextColor" >#4b3d38</SolidColorBrush>
+    <SolidColorBrush x:Key="SearchMultipleMatchesTextColor" >#888888</SolidColorBrush>
+
+    <SolidColorBrush x:Key="BackgroundColor" >#f6f5f4</SolidColorBrush>
+    <SolidColorBrush x:Key="BackgroundControlColor" >#ffffff</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundHoverColor" >#322925</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundAccentedColor" >#4b3d38</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundStandardColor" >#64524b</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundDisabledColor" >#c8bebb</SolidColorBrush>
+
+    <SolidColorBrush x:Key="MatrixColorBackground" >#dddcdb</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColor1" >#f1d9cf</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColor2" >#cfd1cc</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColor3" >#bab8b7</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColor4" >#ced3de</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColorCycle" >#ffdb58</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColorConsumer" >#a4ab47</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColorProvider" >#90c1d7</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColorMatch" >#ff0000</SolidColorBrush>
+    <SolidColorBrush x:Key="MatrixColorBookmark" >#00ff00</SolidColorBrush>
+  </Styles.Resources>
+
+  <Style Selector="Separator.toolbar">
+    <Setter Property="Background" Value="Red"/>
+  </Style>
+
+  <Style Selector="Label.toolbar">
+    <Setter Property="Background" Value="Yellow"/>
+  </Style>
+
+  <Style Selector="Button.toolbar">
+    <Setter Property="Foreground" Value="{StaticResource ForegroundStandardColor}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Height" Value="30" />
+    <Setter Property="Width" Value="100" />
+    <Setter Property="Margin" Value="5" />
+    <Setter Property="Padding" Value="5" />
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="FontSize" Value="{StaticResource StandardFontSize}" />
+  </Style>
+
+  <Style Selector="ComboBox.toolbar">
+    <Setter Property="Background" Value="Yellow"/>
+  </Style>
 </Styles>

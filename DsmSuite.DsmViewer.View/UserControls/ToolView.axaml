@@ -6,7 +6,9 @@
              x:Class="DsmSuite.Viewer.View.UserControls.ToolView">
 
   <Grid ColumnDefinitions="Auto,*,80,80" RowDefinitions="*" >
-    <Label Grid.Column="2" Content="label" Width="80" Height="30"/>
-    <Button Grid.Column="3" Classes="toolbar" Command="{Binding ShowSettingsCommand}" Content="button" Width="80" Height="30"/>
+    <ComboBox Grid.Column="0" Classes="toolbar" Width="80" Height="30"/>
+    <Separator Grid.Column="1" Classes="toolbar" Height="30"/>
+    <Label Grid.Column="2" Classes="toolbar" Content="label" Width="80" Height="30"/>
+    <Button Grid.Column="3" Classes="toolbar" Command="{Binding ShowSettingsCommand}" Content="button"/>
   </Grid> 
 </UserControl>
