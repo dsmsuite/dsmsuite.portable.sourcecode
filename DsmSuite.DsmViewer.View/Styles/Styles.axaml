@@ -5,10 +5,10 @@
   <Design.PreviewWith>
     <Border Padding="20">
       <StackPanel Orientation="Horizontal">
-        <Label Classes="toolbar">I'm a  toolbar label!</Label>
+        <Label Classes="toolbar">I'm a  label!</Label>
         <Separator Classes="toolbar" />
-        <Button Classes="toolbar">I'm a  toolbar button!</Button>
-        <ComboBox Classes="toolbar">I'm a  toolbar combobox!</ComboBox>
+        <Button Classes="toolbar">I'm a button!</Button>
+        <ComboBox Classes="toolbar">I'm a combobox!</ComboBox>
       </StackPanel>
     </Border>
   </Design.PreviewWith>
@@ -79,7 +79,7 @@
 
   <Style Selector="Button.toolbar">
     <Setter Property="Foreground" Value="{StaticResource ForegroundStandardColor}" />
-    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Background" Value="Yellow" />
     <Setter Property="Height" Value="30" />
     <Setter Property="Width" Value="100" />
     <Setter Property="Margin" Value="5" />
