@@ -2,11 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:uc="using:DsmSuite.Viewer.View.UserControls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DsmSuite.Viewer.View.UserControls.ToolView">
 
   <UserControl.Resources>
-    <Image x:Key="SettingsIcon">
+    <Image x:Key="SettingsIcon" >
       <Image.Source>
         <DrawingImage>
           <DrawingImage.Drawing>
@@ -20,14 +21,52 @@
         </DrawingImage>
       </Image.Source>
     </Image>
-    
+
+    <DrawingImage x:Key="SettingsIcon2">
+      <DrawingImage.Drawing>
+        <DrawingGroup>
+          <DrawingGroup.Children>
+            <GeometryDrawing Brush="{Binding RelativeSource={RelativeSource AncestorType=Control}, Path=Foreground}"
+                             Geometry="F1 M 38,23.5C 38.8643,23.5 39.7109,23.5756 40.5337,23.7206L 42.6275,18.5381L 48.1901,20.787L 46.0964,25.9692C 47.6473,27.0149 48.9851,28.3527 50.0308,29.9036L 55.213,27.8099L 57.4619,33.3725L 52.2794,35.4664C 52.4244,36.2891 52.5,37.1357 52.5,38C 52.5,38.8643 52.4244,39.7109 52.2794,40.5337L 57.4619,42.6275L 55.213,48.1901L 50.0308,46.0964C 49.0795,47.5073 47.8865,48.7418 46.5112,49.7405L 48.7844,54.8462L 43.3041,57.2891L 41.0307,52.1828C 40.0533,52.3906 39.0394,52.5 38,52.5C 37.1357,52.5 36.2891,52.4244 35.4664,52.2794L 33.3725,57.462L 27.8099,55.213L 29.9036,50.0309C 28.3527,48.9851 27.0149,47.6473 25.9691,46.0964L 20.787,48.1901L 18.538,42.6275L 23.7206,40.5336C 23.5756,39.7109 23.5,38.8643 23.5,38C 23.5,37.1357 23.5756,36.2891 23.7206,35.4664L 18.538,33.3725L 20.787,27.8099L 25.9691,29.9036C 26.9205,28.4927 28.1135,27.2582 29.4889,26.2594L 27.2157,21.1537L 32.6959,18.7109L 34.9694,23.8172C 35.9468,23.6094 36.9606,23.5 38,23.5 Z M 38,28C 32.4771,28 28,32.4772 28,38C 28,43.5229 32.4771,48 38,48C 43.5228,48 48,43.5229 48,38C 48,32.4772 43.5228,28 38,28 Z" />
+          </DrawingGroup.Children>
+        </DrawingGroup>
+      </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <PathIcon x:Key="Bootstrap.Alarm2" Foreground="Red" Background="Yellow" Data="M8.5,5.5 A0.5,-0.5 0 0 0 7.5,5.5 L7.5,8.862 L6.071,11.24 A0.5,-0.5 0 1 0 6.929,11.76 L8.429,9.257 A0.5,-0.5 0 0 0 8.5,9 L8.5,5.5 z M6.5,0 A0.5,-0.5 0 0 0 6.5,1 L7,1 L7,2.07 A7.001,-7.001 0 0 0 3.727,14.54 L3.125,15.15 A0.5,-0.5 0 0 0 3.832,15.85 L4.578,15.11 A6.97,-6.97 0 0 0 8,16 A6.97,-6.97 0 0 0 11.42,15.11 L12.17,15.85 A0.5,-0.5 0 0 0 12.87,15.15 L12.27,14.54 A7.001,-7.001 0 0 0 9,2.07 L9,1 L9.5,1 A0.5,-0.5 0 0 0 9.5,0 L6.5,0 z M7.538,3.018 A6.093,-6.093 0 0 1 8.462,3.018 A6,-6 0 1 1 7.538,3.018 z M2.535E-009,3.5 C2.535E-009,4.253 0.333,4.929 0.86,5.387 A8.035,-8.035 0 0 1 4.387,1.86 A2.5,-2.5 0 0 0 2.535E-009,3.5 z M13.5,1 C12.75,1 12.07,1.333 11.61,1.86 A8.035,-8.035 0 0 1 15.14,5.387 A2.5,-2.5 0 0 0 13.5,1 z"   />
+
     <GeometryDrawing x:Key="Bootstrap.Alarm" Brush="#FF000000" Geometry="M8.5,5.5 A0.5,-0.5 0 0 0 7.5,5.5 L7.5,8.862 L6.071,11.24 A0.5,-0.5 0 1 0 6.929,11.76 L8.429,9.257 A0.5,-0.5 0 0 0 8.5,9 L8.5,5.5 z M6.5,0 A0.5,-0.5 0 0 0 6.5,1 L7,1 L7,2.07 A7.001,-7.001 0 0 0 3.727,14.54 L3.125,15.15 A0.5,-0.5 0 0 0 3.832,15.85 L4.578,15.11 A6.97,-6.97 0 0 0 8,16 A6.97,-6.97 0 0 0 11.42,15.11 L12.17,15.85 A0.5,-0.5 0 0 0 12.87,15.15 L12.27,14.54 A7.001,-7.001 0 0 0 9,2.07 L9,1 L9.5,1 A0.5,-0.5 0 0 0 9.5,0 L6.5,0 z M7.538,3.018 A6.093,-6.093 0 0 1 8.462,3.018 A6,-6 0 1 1 7.538,3.018 z M2.535E-009,3.5 C2.535E-009,4.253 0.333,4.929 0.86,5.387 A8.035,-8.035 0 0 1 4.387,1.86 A2.5,-2.5 0 0 0 2.535E-009,3.5 z M13.5,1 C12.75,1 12.07,1.333 11.61,1.86 A8.035,-8.035 0 0 1 15.14,5.387 A2.5,-2.5 0 0 0 13.5,1 z"   />
   </UserControl.Resources>
 
-  <Grid ColumnDefinitions="Auto,*,80,80, 70" RowDefinitions="*" >
-    <ComboBox Grid.Column="0" Classes="toolbar" Width="80" Height="30"/>
-    <Separator Grid.Column="1" Classes="toolbar" Height="30"/>
-    <Label Grid.Column="2" Classes="toolbar" Content="label" Width="80" Height="30"/>
-    <Button Grid.Column="3" Classes="toolbar" Content="{StaticResource SettingsIcon}" />
+  <Grid ColumnDefinitions="Auto,*,80,3" RowDefinitions="*" >
+    <StackPanel Grid.Column="0" Orientation="Horizontal">
+      <Button x:Name="OpenButton" Classes="toolbar" Command="{Binding OpenFileCommand}" Content="o"/>
+      <Button x:Name="SaveButton" Classes="toolbar" Command="{Binding SaveFileCommand}" Content="o"/>
+      <Separator/>
+      <Button x:Name="HomeButton" Classes="toolbar" Command="{Binding HomeCommand}" Content="o"/>
+      <Separator/>
+      <Button x:Name="UpButton" Classes="toolbar" Command="{Binding MoveUpElementCommand}" Content="o"/>
+      <Button x:Name="DownButton" Classes="toolbar" Command="{Binding MoveDownElementCommand}" Content="o"/>
+      <Button x:Name="PartitionButton" Classes="toolbar" Command="{Binding SortElementCommand}" Content="o"/>
+      <ComboBox x:Name="PartitionAlgorithmComboBox" Classes="toolbar" Width="100" />
+      <Button x:Name="LabelButton" Classes="toolbar"  Command="{Binding MakeSnapshotCommand}" Content="o"/>
+      <Separator/>
+      <Button x:Name="UndoButton" Classes="toolbar" Command="{Binding UndoCommand}" Content="o"/>
+      <Button x:Name="RedoButton" Classes="toolbar" Command="{Binding RedoCommand}" Content="o"/>
+      <Button x:Name="HistoryButton" Classes="toolbar" Command="{Binding ShowHistoryCommand}" Content="o"/>
+      <Separator/>
+      <Button x:Name="ZoomInButon" Classes="toolbar" Command="{Binding ZoomInCommand}" Content="o"/>
+      <Button x:Name="ZoomOutButton" Classes="toolbar" Command="{Binding ZoomOutCommand}" Content="o"/>
+      <Button x:Name="SnapshotButton" Classes="toolbar" Command="{Binding TakeScreenshotCommand}" Content="o"/>
+      <Separator/>
+      <ComboBox x:Name="IndicatorViewModeComboBox" Classes="toolbar" Width="100" />
+      <Button Height="35" Width="35" Foreground="Red" >
+        <PathIcon Data="F1M387.124420166016,-400.150909423828C388.229858398438,-400.156280517578 389.342864990234,-400.088714599609 390.456878662109,-399.945495605469 399.369049072266,-398.7998046875 406.993011474609,-392.986541748047 410.456878662109,-384.695495605469C413.920745849609,-376.404479980469,412.698303222656,-366.895324707031,407.25,-359.75L293,-209.75C288.280181884766,-203.61882019043 280.987426757813,-200.018600463867 273.25,-200 265.555480957031,-199.958541870117 258.270538330078,-203.462692260742 253.5,-209.5L192.75,-287.25C184.25862121582,-298.157623291016,186.217376708984,-313.883636474609,197.125,-322.375C208.032623291016,-330.866394042969,223.75862121582,-328.907623291016,232.25,-318L273,-265.25 367.5,-390.25 367.25,-390.25C372.017272949219,-396.502166748047,379.386199951172,-400.113342285156,387.124420166016,-400.150909423828z M304.3896484375,-499.958587646484C250.851913452148,-501.122711181641 197.903366088867,-480.746063232422 158.578643798828,-441.421356201172 101.379058837891,-384.221740722656 84.2678985595703,-298.198181152344 115.224098205566,-223.463317871094C146.180297851563,-148.728439331055 219.107543945313,-100 300,-100 410.456970214844,-100 500,-189.543045043945 500,-300C500,-380.892456054688,451.271545410156,-453.819702148438,376.536682128906,-484.77587890625C353.182037353516,-494.449676513672,328.724975585938,-499.429412841797,304.3896484375,-499.958587646484z M300,-550C438.071197509766,-550,550,-438.071197509766,550,-300C550,-198.88444519043 489.089447021484,-107.725387573242 395.670837402344,-69.0301361083984 302.252258300781,-30.3349075317383 194.722793579102,-51.7238273620605 123.223304748535,-123.223320007324 51.7238273620605,-194.72282409668 30.3348770141602,-302.252258300781 69.0301208496094,-395.670867919922C107.725372314453,-489.089447021484,198.88444519043,-550,300,-550z" VerticalAlignment="Center" />
+      </Button>
+      <Button Height="35" Width="35" Content="{StaticResource  Bootstrap.Alarm2}" />
+    </StackPanel>
+    <uc:ElementSearchBox Grid.Column="1" DataContext="{Binding Path=ElementSearchViewModel}" />
+    <Label x:Name="SearchResultLabel" Grid.Column="2"  Classes="toolbar"  DataContext="{Binding Path=ElementSearchViewModel}" Content="{Binding SearchResult}" Width="80"/>
+    <Button x:Name="SettingsButton" Grid.Column="3" Classes="toolbar" Command="{Binding ShowSettingsCommand}" Width="24"/>
   </Grid>
 </UserControl>
