@@ -24,7 +24,7 @@
     <GeometryDrawing x:Key="Bootstrap.Alarm" Brush="#FF000000" Geometry="M8.5,5.5 A0.5,-0.5 0 0 0 7.5,5.5 L7.5,8.862 L6.071,11.24 A0.5,-0.5 0 1 0 6.929,11.76 L8.429,9.257 A0.5,-0.5 0 0 0 8.5,9 L8.5,5.5 z M6.5,0 A0.5,-0.5 0 0 0 6.5,1 L7,1 L7,2.07 A7.001,-7.001 0 0 0 3.727,14.54 L3.125,15.15 A0.5,-0.5 0 0 0 3.832,15.85 L4.578,15.11 A6.97,-6.97 0 0 0 8,16 A6.97,-6.97 0 0 0 11.42,15.11 L12.17,15.85 A0.5,-0.5 0 0 0 12.87,15.15 L12.27,14.54 A7.001,-7.001 0 0 0 9,2.07 L9,1 L9.5,1 A0.5,-0.5 0 0 0 9.5,0 L6.5,0 z M7.538,3.018 A6.093,-6.093 0 0 1 8.462,3.018 A6,-6 0 1 1 7.538,3.018 z M2.535E-009,3.5 C2.535E-009,4.253 0.333,4.929 0.86,5.387 A8.035,-8.035 0 0 1 4.387,1.86 A2.5,-2.5 0 0 0 2.535E-009,3.5 z M13.5,1 C12.75,1 12.07,1.333 11.61,1.86 A8.035,-8.035 0 0 1 15.14,5.387 A2.5,-2.5 0 0 0 13.5,1 z"   />
   </UserControl.Resources>
 
-  <Grid ColumnDefinitions="Auto,*,80,80" RowDefinitions="*" >
+  <Grid ColumnDefinitions="Auto,*,80,80, 70" RowDefinitions="*" >
     <ComboBox Grid.Column="0" Classes="toolbar" Width="80" Height="30"/>
     <Separator Grid.Column="1" Classes="toolbar" Height="30"/>
     <Label Grid.Column="2" Classes="toolbar" Content="label" Width="80" Height="30"/>

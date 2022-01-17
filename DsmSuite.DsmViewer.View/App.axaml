@@ -10,4 +10,5 @@
     <FluentTheme Mode="Light"/>
     <StyleInclude Source="/Styles/Styles.axaml" />
   </Application.Styles>
+
 </Application>

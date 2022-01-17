@@ -88,6 +88,43 @@
     <Setter Property="FontSize" Value="{StaticResource StandardFontSize}" />
   </Style>
 
+  <Style Selector="Button.toolbar">
+    <Setter Property="Background" Value="Yellow"/>
+    <Setter Property="BorderBrush" Value="Orange"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Foreground" Value="Blue"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="Padding" Value="4"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Content="{TemplateBinding Content}"
+                          Padding="{TemplateBinding Padding}"
+                          RecognizesAccessKey="True"
+                          TextBlock.Foreground="{TemplateBinding Foreground}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Button.toolbar:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="Red"/>
+  </Style>
+  <Style Selector="Button.toolbar:pressed  /template/ ContentPresenter">
+    <Setter Property="Background" Value="White"/>
+  </Style>
+  <Style Selector="Button.toolbar:disabled">
+    <Setter Property="Opacity" Value="50"/>
+  </Style>
+
+
+
   <Style Selector="ComboBox.toolbar">
     <Setter Property="Background" Value="Yellow"/>
   </Style>
