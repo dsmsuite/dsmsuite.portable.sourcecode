@@ -69,27 +69,16 @@
     <SolidColorBrush x:Key="MatrixColorBookmark" >#00ff00</SolidColorBrush>
   </Styles.Resources>
 
-  <Style Selector="Separator.toolbar">
+  <Style Selector="Separator.toolbarSeparator">
     <Setter Property="Background" Value="Red"/>
   </Style>
 
-  <Style Selector="Label.toolbar">
+  <Style Selector="Label.toolbarLabel">
     <Setter Property="Background" Value="Yellow"/>
   </Style>
 
-  <Style Selector="Button.toolbar">
-    <Setter Property="Foreground" Value="{StaticResource ForegroundStandardColor}" />
-    <Setter Property="Background" Value="Yellow" />
-    <Setter Property="Height" Value="30" />
-    <Setter Property="Width" Value="100" />
-    <Setter Property="Margin" Value="5" />
-    <Setter Property="Padding" Value="5" />
-    <Setter Property="FontWeight" Value="Bold"/>
-    <Setter Property="FontSize" Value="{StaticResource StandardFontSize}" />
-  </Style>
-
-  <Style Selector="Button.toolbar">
-    <Setter Property="Background" Value="Yellow"/>
+  <Style Selector="Button.toolbarImageButton">
+    <Setter Property="Background" Value="Transparent"/>
     <Setter Property="BorderBrush" Value="Orange"/>
     <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="Foreground" Value="Blue"/>
@@ -115,19 +104,30 @@
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="Button.toolbar:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="Red"/>
+  <Style Selector="Button.toolbarImageButton:pointerover /template/ ContentPresenter">
+    <Setter Property="BorderBrush" Value="Orange"/>
+    <Setter Property="Background" Value="Transparent"/>
   </Style>
-  <Style Selector="Button.toolbar:pressed  /template/ ContentPresenter">
-    <Setter Property="Background" Value="White"/>
+  <Style Selector="Button.toolbarImageButton:pressed  /template/ ContentPresenter">
+    <Setter Property="BorderBrush" Value="Green"/>
+    <Setter Property="Background" Value="Transparent"/>
   </Style>
-  <Style Selector="Button.toolbar:disabled /template/ ContentPresenter">
-    <Setter Property="Background" Value="Magenta"/>
+  <Style Selector="Button.toolbarImageButton:disabled /template/ ContentPresenter">
+    <Setter Property="BorderBrush" Value="Blue"/>
+    <Setter Property="Background" Value="Transparent"/>
   </Style>
 
-
-
-  <Style Selector="ComboBox.toolbar">
+  <Style Selector="PathIcon.toolbarIcon">
+    <Setter Property="Foreground" Value="Blue"/>
+  </Style>
+  <Style Selector="PathIcon.toolbar:pointerover">
+    <Setter Property="Foreground" Value="Orange"/>
+  </Style>
+  <Style Selector="PathIcon.toolbar:disabled">
+    <Setter Property="Foreground" Value="Red"/>
+  </Style>
+  
+  <Style Selector="ComboBox.toolbarComboBox">
     <Setter Property="Background" Value="Yellow"/>
   </Style>
 </Styles>

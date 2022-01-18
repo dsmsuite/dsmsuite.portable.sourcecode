@@ -6,9 +6,9 @@
         xmlns:uc="using:DsmSuite.Viewer.View.UserControls"
         xmlns:mx="using:DsmSuite.Viewer.View.Matrix"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="DsmSuite.Viewer.View.Views.MainWindow"
+        x:Class="DsmSuite.Viewer.Main.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="DsmSuite.Viewer.View">
+        Title="{Binding Title}">
 
   <Design.DataContext>
     <vm:MainWindowViewModel/>

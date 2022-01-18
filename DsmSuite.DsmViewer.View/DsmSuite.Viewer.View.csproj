@@ -62,7 +62,7 @@
     <Compile Update="UserControls\LegendView.axaml.cs">
       <DependentUpon>LegendView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Windows\ProgressWindow.axaml.cs">
+    <Compile Update="Main\ProgressWindow.axaml.cs">
       <DependentUpon>ProgressWindow.axaml</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using DsmSuite.DsmViewer.ViewModel.Common;
 using DsmSuite.Viewer.View.ViewModels;
 using System;
 
