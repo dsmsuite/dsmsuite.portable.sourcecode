@@ -5,10 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using ReactiveUI;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace DsmSuite.DsmViewer.ViewModel.Main
 {
-    public class ElementSearchViewModel : ViewModelBase
+    public class ElementSearchViewModel : ReactiveViewModelBase
     {
         private readonly IDsmApplication _application;
         private readonly IDsmElement _searchPathElement;
@@ -51,12 +54,12 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             ElementTypes = new List<string>(application.GetElementTypes());
             SelectedElementType = preSelectedElementType;
 
-            ClearSearchCommand = new RelayCommand<object>(ClearSearchExecute, ClearSearchCanExecute);
+            ClearSearchCommand = ReactiveCommand.Create(ClearSearchExecute, ClearSearchCanExecute);
         }
 
         public List<string> ElementTypes { get; }
 
-        public ICommand ClearSearchCommand { get; }
+        public ReactiveCommand<Unit, Unit> ClearSearchCommand { get; }
 
         public string SearchPath
         {
@@ -66,7 +69,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         public IDsmElement SelectedElement
         {
             get { return _selectedElement; }
-            set { _selectedElement = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _selectedElement, value); }
         }
 
         public string SearchText
@@ -76,10 +79,9 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             {
                 if (_searchText != value)
                 {
-                    _searchText = value;
-                    OnPropertyChanged();
+                    _searchText = this.RaiseAndSetIfChanged(ref _searchText, value); ;
                     OnSearchTextUpdated();
-                }
+                }      
             }
         }
 
@@ -90,10 +92,9 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             {
                 if (_caseSensitiveSearch != value)
                 {
-                    _caseSensitiveSearch = value;
-                    OnPropertyChanged();
+                    _caseSensitiveSearch = this.RaiseAndSetIfChanged(ref _caseSensitiveSearch, value); ;
                     OnSearchTextUpdated();
-                }
+                }          
             }
         }
 
@@ -104,29 +105,28 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             {
                 if (_selectedElementType != value)
                 {
-                    _selectedElementType = value;
-                    OnPropertyChanged();
+                    _selectedElementType = this.RaiseAndSetIfChanged(ref _selectedElementType, value); ;
                     OnSearchTextUpdated();
-                }
+                }           
             }
         }
 
         public ObservableCollection<string> SearchMatches
         {
             get { return _searchMatches; }
-            private set { _searchMatches = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _searchMatches, value); }
         }
 
         public SearchState SearchState
         {
             get { return _searchState; }
-            set { _searchState = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _searchState, value); }
         }
 
         public string SearchResult
         {
             get { return _searchResult; }
-            set { _searchResult = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _searchResult, value); }
         }
 
         private void OnSearchTextUpdated()
@@ -179,14 +179,17 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             }
         }
 
-        public void ClearSearchExecute(object parameter)
+        public void ClearSearchExecute()
         {
             SearchText = "";
         }
 
-        private bool ClearSearchCanExecute(object parameter)
+        private IObservable<bool>? ClearSearchCanExecute
         {
-            return SearchState != SearchState.Off;
+            get
+            {
+                return Observable.Return(SearchState != SearchState.Off);
+            }
         }
     }
 }
