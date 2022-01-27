@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Input;
 using DsmSuite.DsmViewer.ViewModel.Common;
 using DsmSuite.DsmViewer.ViewModel.Matrix;
 using DsmSuite.DsmViewer.ViewModel.Lists;
@@ -9,16 +8,16 @@ using System.Linq;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Editing.Element;
-using DsmSuite.DsmViewer.ViewModel.Editing.Relation;
 using DsmSuite.DsmViewer.ViewModel.Editing.Snapshot;
 using DsmSuite.Common.Util;
 using DsmSuite.DsmViewer.ViewModel.Settings;
 using System.Reflection;
-using System.Collections.ObjectModel;
+using ReactiveUI;
+using System.Reactive.Linq;
 
 namespace DsmSuite.DsmViewer.ViewModel.Main
 {
-    public class MainViewModel : ViewModelBase, IMainViewModel
+    public class MainViewModel : ReactiveViewModelBase, IMainViewModel
     {
         public void NotifyElementsReportReady(ElementListViewModelType viewModelType, IDsmElement selectedConsumer, IDsmElement selectedProvider)
         {
@@ -70,38 +69,38 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             _application.Modified += OnModelModified;
             _application.ActionPerformed += OnActionPerformed;
 
-            OpenFileCommand = new RelayCommand<object>(OpenFileExecute, OpenFileCanExecute);
-            SaveFileCommand = new RelayCommand<object>(SaveFileExecute, SaveFileCanExecute);
+            //OpenFileCommand = ReactiveCommand.Create(OpenFileExecute, OpenFileCanExecute);
+            SaveFileCommand = ReactiveCommand.Create(SaveFileExecute, SaveFileCanExecute);
 
-            HomeCommand = new RelayCommand<object>(HomeExecute, HomeCanExecute);
+            HomeCommand = ReactiveCommand.Create(HomeExecute, HomeCanExecute);
 
-            MoveUpElementCommand = new RelayCommand<object>(MoveUpElementExecute, MoveUpElementCanExecute);
-            MoveDownElementCommand = new RelayCommand<object>(MoveDownElementExecute, MoveDownElementCanExecute);
-            SortElementCommand = new RelayCommand<object>(SortElementExecute, SortElementCanExecute);
+            MoveUpElementCommand = ReactiveCommand.Create(MoveUpElementExecute, MoveUpElementCanExecute);
+            MoveDownElementCommand = ReactiveCommand.Create(MoveDownElementExecute, MoveDownElementCanExecute);
+            SortElementCommand = ReactiveCommand.Create(SortElementExecute, SortElementCanExecute);
 
-            ToggleElementBookmarkCommand = new RelayCommand<object>(ToggleElementBookmarkExecute, ToggleElementBookmarkCanExecute);
+            ToggleElementBookmarkCommand = ReactiveCommand.Create(ToggleElementBookmarkExecute, ToggleElementBookmarkCanExecute);
 
-            ShowElementDetailMatrixCommand = new RelayCommand<object>(ShowElementDetailMatrixExecute, ShowElementDetailMatrixCanExecute);
-            ShowElementContextMatrixCommand = new RelayCommand<object>(ShowElementContextMatrixExecute, ShowElementContextMatrixCanExecute);
-            ShowCellDetailMatrixCommand = new RelayCommand<object>(ShowCellDetailMatrixExecute, ShowCellDetailMatrixCanExecute);
+            ShowElementDetailMatrixCommand = ReactiveCommand.Create(ShowElementDetailMatrixExecute, ShowElementDetailMatrixCanExecute);
+            ShowElementContextMatrixCommand = ReactiveCommand.Create(ShowElementContextMatrixExecute, ShowElementContextMatrixCanExecute);
+            ShowCellDetailMatrixCommand = ReactiveCommand.Create(ShowCellDetailMatrixExecute, ShowCellDetailMatrixCanExecute);
 
-            ZoomInCommand = new RelayCommand<object>(ZoomInExecute, ZoomInCanExecute);
-            ZoomOutCommand = new RelayCommand<object>(ZoomOutExecute, ZoomOutCanExecute);
-            ToggleElementExpandedCommand = new RelayCommand<object>(ToggleElementExpandedExecute, ToggleElementExpandedCanExecute);
+            ZoomInCommand = ReactiveCommand.Create(ZoomInExecute, ZoomInCanExecute);
+            ZoomOutCommand = ReactiveCommand.Create(ZoomOutExecute, ZoomOutCanExecute);
+            ToggleElementExpandedCommand = ReactiveCommand.Create(ToggleElementExpandedExecute, ToggleElementExpandedCanExecute);
 
-            UndoCommand = new RelayCommand<object>(UndoExecute, UndoCanExecute);
-            RedoCommand = new RelayCommand<object>(RedoExecute, RedoCanExecute);
+            UndoCommand = ReactiveCommand.Create(UndoExecute, UndoCanExecute);
+            RedoCommand = ReactiveCommand.Create(RedoExecute, RedoCanExecute);
 
-            AddElementCommand = new RelayCommand<object>(AddElementExecute, AddElementCanExecute);
-            ModifyElementCommand = new RelayCommand<object>(ModifyElementExecute, ModifyElementCanExecute);
-            DeleteElementCommand = new RelayCommand<object>(DeleteElementExecute, DeleteElementCanExecute);
-            ChangeElementParentCommand = new RelayCommand<object>(MoveElementExecute, MoveElementCanExecute);
+            AddElementCommand = ReactiveCommand.Create(AddElementExecute, AddElementCanExecute);
+            ModifyElementCommand = ReactiveCommand.Create(ModifyElementExecute, ModifyElementCanExecute);
+            DeleteElementCommand = ReactiveCommand.Create(DeleteElementExecute, DeleteElementCanExecute);
+            ChangeElementParentCommand = ReactiveCommand.Create(MoveElementExecute, MoveElementCanExecute);
 
-            MakeSnapshotCommand = new RelayCommand<object>(MakeSnapshotExecute, MakeSnapshotCanExecute);
-            ShowHistoryCommand = new RelayCommand<object>(ShowHistoryExecute, ShowHistoryCanExecute);
-            ShowSettingsCommand = new RelayCommand<object>(ShowSettingsExecute, ShowSettingsCanExecute);
+            MakeSnapshotCommand = ReactiveCommand.Create(MakeSnapshotExecute, MakeSnapshotCanExecute);
+            ShowHistoryCommand = ReactiveCommand.Create(ShowHistoryExecute, ShowHistoryCanExecute);
+            ShowSettingsCommand = ReactiveCommand.Create(ShowSettingsExecute, ShowSettingsCanExecute);
 
-            TakeScreenshotCommand = new RelayCommand<object>(TakeScreenshotExecute);
+            TakeScreenshotCommand = ReactiveCommand.Create(TakeScreenshotExecute);
 
             _modelFilename = "";
             _version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -141,7 +140,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         public MatrixViewModel ActiveMatrix
         {
             get { return _activeMatrix; }
-            set { _activeMatrix = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _activeMatrix, value); }
         }
 
         public ElementSearchViewModel ElementSearchViewModel { get; }
@@ -151,7 +150,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         public bool IsMetricsViewExpanded
         {
             get { return _isMetricsViewExpanded; }
-            set { _isMetricsViewExpanded = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _isMetricsViewExpanded, value); }
         }
 
         public List<string> SupportedSortAlgorithms => _application.GetSupportedSortAlgorithms().ToList();
@@ -159,7 +158,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         public string SelectedSortAlgorithm
         {
             get { return _selectedSortAlgorithm; }
-            set { _selectedSortAlgorithm = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _selectedSortAlgorithm, value); }
         }
 
         public List<IndicatorViewMode> SupportedIndicatorViewModes => Enum.GetValues(typeof(IndicatorViewMode)).Cast<IndicatorViewMode>().ToList();
@@ -167,66 +166,66 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         public IndicatorViewMode SelectedIndicatorViewMode
         {
             get { return _selectedIndicatorViewMode; }
-            set { _selectedIndicatorViewMode = value; OnPropertyChanged(); ActiveMatrix?.Reload(); }
+            set { this.RaiseAndSetIfChanged(ref _selectedIndicatorViewMode, value); ActiveMatrix?.Reload(); }
         }
 
-        public ICommand OpenFileCommand { get; }
-        public ICommand SaveFileCommand { get; }
-        public ICommand HomeCommand { get; }
+        public IReactiveCommand OpenFileCommand { get; }
+        public IReactiveCommand SaveFileCommand { get; }
+        public IReactiveCommand HomeCommand { get; }
 
-        public ICommand MoveUpElementCommand { get; }
-        public ICommand MoveDownElementCommand { get; }
+        public IReactiveCommand MoveUpElementCommand { get; }
+        public IReactiveCommand MoveDownElementCommand { get; }
 
-        public ICommand ToggleElementBookmarkCommand { get; }
+        public IReactiveCommand ToggleElementBookmarkCommand { get; }
 
-        public ICommand SortElementCommand { get; }
-        public ICommand ShowElementDetailMatrixCommand { get; }
-        public ICommand ShowElementContextMatrixCommand { get; }
-        public ICommand ShowCellDetailMatrixCommand { get; }
-        public ICommand ZoomInCommand { get; }
-        public ICommand ZoomOutCommand { get; }
-        public ICommand ToggleElementExpandedCommand { get; }
-        public ICommand UndoCommand { get; }
-        public ICommand RedoCommand { get; }
+        public IReactiveCommand SortElementCommand { get; }
+        public IReactiveCommand ShowElementDetailMatrixCommand { get; }
+        public IReactiveCommand ShowElementContextMatrixCommand { get; }
+        public IReactiveCommand ShowCellDetailMatrixCommand { get; }
+        public IReactiveCommand ZoomInCommand { get; }
+        public IReactiveCommand ZoomOutCommand { get; }
+        public IReactiveCommand ToggleElementExpandedCommand { get; }
+        public IReactiveCommand UndoCommand { get; }
+        public IReactiveCommand RedoCommand { get; }
 
-        public ICommand AddElementCommand { get; }
-        public ICommand ModifyElementCommand { get; }
-        public ICommand DeleteElementCommand { get; }
-        public ICommand ChangeElementParentCommand { get; }
+        public IReactiveCommand AddElementCommand { get; }
+        public IReactiveCommand ModifyElementCommand { get; }
+        public IReactiveCommand DeleteElementCommand { get; }
+        public IReactiveCommand ChangeElementParentCommand { get; }
 
-        public ICommand MakeSnapshotCommand { get; }
-        public ICommand ShowHistoryCommand { get; }
-        public ICommand ShowSettingsCommand { get; }
-        public ICommand TakeScreenshotCommand { get; }
+        public IReactiveCommand MakeSnapshotCommand { get; }
+        public IReactiveCommand ShowHistoryCommand { get; }
+        public IReactiveCommand ShowSettingsCommand { get; }
+        public IReactiveCommand TakeScreenshotCommand { get; }
 
         public string ModelFilename
         {
             get { return _modelFilename; }
-            set { _modelFilename = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _modelFilename, value); }
         }
 
         public bool IsModified
         {
             get { return _isModified; }
-            set { _isModified = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _isModified, value); }
         }
 
         public bool IsLoaded
         {
             get { return _isLoaded; }
-            set { _isLoaded = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _isLoaded, value); }
         }
 
         public string Title
         {
             get { return _title; }
-            set { _title = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _title, value); }
         }
 
         public string Version
         {
             get { return _version; }
-            set { _version = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _version, value); }
         }
 
         public ProgressViewModel ProgressViewModel => _progressViewModel;
@@ -283,7 +282,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             }
         }
 
-        private async void SaveFileExecute(object parameter)
+        private async void SaveFileExecute()
         {
             var progress = new Progress<ProgressInfo>(p =>
             {
@@ -294,12 +293,15 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             await _application.SaveModel(ModelFilename, progress);
         }
 
-        private bool SaveFileCanExecute(object parameter)
+        private IObservable<bool>? SaveFileCanExecute
         {
-            return _application.IsModified;
+            get
+            {
+                return Observable.Return(_application.IsModified);
+            }
         }
 
-        private void HomeExecute(object parameter)
+        private void HomeExecute()
         {
             IncludeAllInTree();
             ActiveMatrix.Reload();
@@ -310,34 +312,43 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             return new List<IDsmElement> { _application.RootElement };
         }
 
-        private bool HomeCanExecute(object parameter)
+        private IObservable<bool>? HomeCanExecute
         {
-            return IsLoaded;
+            get
+            {
+                return Observable.Return(IsLoaded);
+            }
         }
 
-        private void SortElementExecute(object parameter)
+        private void SortElementExecute()
         {
             _application.Sort(SelectedProvider, SelectedSortAlgorithm);
         }
 
-        private bool SortElementCanExecute(object parameter)
+        private IObservable<bool>? SortElementCanExecute
         {
-            return _application.HasChildren(SelectedProvider);
+            get
+            {
+                return Observable.Return(_application.HasChildren(SelectedProvider));
+            }
         }
 
-        private void ShowElementDetailMatrixExecute(object parameter)
+        private void ShowElementDetailMatrixExecute()
         {
             ExcludeAllFromTree();
             IncludeInTree(SelectedProvider);
             ActiveMatrix.Reload();
         }
 
-        private bool ShowElementDetailMatrixCanExecute(object parameter)
+        private IObservable<bool>? ShowElementDetailMatrixCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowElementContextMatrixExecute(object parameter)
+        private void ShowElementContextMatrixExecute()
         {
             ExcludeAllFromTree();
             IncludeInTree(SelectedProvider);
@@ -355,12 +366,15 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             ActiveMatrix.Reload();
         }
 
-        private bool ShowElementContextMatrixCanExecute(object parameter)
+        private IObservable<bool>? ShowElementContextMatrixCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowCellDetailMatrixExecute(object parameter)
+        private void ShowCellDetailMatrixExecute()
         {
             ExcludeAllFromTree();
             IncludeInTree(SelectedProvider);
@@ -369,36 +383,45 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             ActiveMatrix.Reload();
         }
 
-        private bool ShowCellDetailMatrixCanExecute(object parameter)
+        private IObservable<bool>? ShowCellDetailMatrixCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void MoveUpElementExecute(object parameter)
+        private void MoveUpElementExecute()
         {
             _application.MoveUp(SelectedProvider);
         }
 
-        private bool MoveUpElementCanExecute(object parameter)
+        private IObservable<bool>? MoveUpElementCanExecute
         {
-            IDsmElement current = SelectedProvider;
-            IDsmElement previous = _application.PreviousSibling(current);
-            return (current != null) && (previous != null);
+            get
+            {
+                IDsmElement current = SelectedProvider;
+                IDsmElement previous = _application.PreviousSibling(current);
+                return Observable.Return((current != null) && (previous != null));
+            }
         }
 
-        private void MoveDownElementExecute(object parameter)
+        private void MoveDownElementExecute()
         {
             _application.MoveDown(SelectedProvider);
         }
 
-        private bool MoveDownElementCanExecute(object parameter)
+        private IObservable<bool>? MoveDownElementCanExecute
         {
-            IDsmElement current = SelectedProvider;
-            IDsmElement next = _application.NextSibling(current);
-            return (current != null) && (next != null);
+            get
+            {
+                IDsmElement current = SelectedProvider;
+                IDsmElement next = _application.NextSibling(current);
+                return Observable.Return((current != null) && (next != null));
+            }
         }
 
-        private void ZoomInExecute(object parameter)
+        private void ZoomInExecute()
         {
             if (ActiveMatrix != null)
             {
@@ -406,12 +429,15 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             }
         }
 
-        private bool ZoomInCanExecute(object parameter)
+        private IObservable<bool>? ZoomInCanExecute
         {
-            return ActiveMatrix?.ZoomLevel < _maxZoom;
+            get
+            {
+                return Observable.Return(ActiveMatrix?.ZoomLevel < _maxZoom);
+            }
         }
 
-        private void ZoomOutExecute(object parameter)
+        private void ZoomOutExecute()
         {
             if (ActiveMatrix != null)
             {
@@ -419,12 +445,15 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             }
         }
 
-        private bool ZoomOutCanExecute(object parameter)
+        private IObservable<bool>? ZoomOutCanExecute
         {
-            return ActiveMatrix?.ZoomLevel > _minZoom;
+            get
+            {
+                return Observable.Return(ActiveMatrix?.ZoomLevel > _minZoom);
+            }
         }
 
-        private void ToggleElementExpandedExecute(object parameter)
+        private void ToggleElementExpandedExecute()
         {
             ActiveMatrix.SelectTreeItem(ActiveMatrix.HoveredTreeItem);
             if ((SelectedProviderTreeItem != null) && (SelectedProviderTreeItem.IsExpandable))
@@ -435,28 +464,34 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             ActiveMatrix.Reload();
         }
 
-        private bool ToggleElementExpandedCanExecute(object parameter)
+        private IObservable<bool>? ToggleElementExpandedCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
         public string UndoText
         {
             get { return _undoText; }
-            set { _undoText = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _undoText, value); }
         }
 
-        private void UndoExecute(object parameter)
+        private void UndoExecute()
         {
             _application.Undo();
         }
 
-        private bool UndoCanExecute(object parameter)
+        private IObservable<bool>? UndoCanExecute
         {
-            return _application.CanUndo();
+            get
+            {
+                return Observable.Return(_application.CanUndo());
+            }
         }
 
-        private void RedoExecute(object parameter)
+        private void RedoExecute()
         {
             _application.Redo();
         }
@@ -464,12 +499,15 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         public string RedoText
         {
             get { return _redoText; }
-            set { _redoText = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _redoText, value); }
         }
 
-        private bool RedoCanExecute(object parameter)
+        private IObservable<bool>? RedoCanExecute
         {
-            return _application.CanRedo();
+            get
+            {
+                return Observable.Return(_application.CanRedo());
+            }
         }
 
         private void SelectDefaultIndicatorMode()
@@ -484,71 +522,81 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             ActiveMatrix?.Reload();
         }
 
-        private void AddElementExecute(object parameter)
+        private void AddElementExecute()
         {
             ElementEditViewModel elementEditViewModel = new ElementEditViewModel(ElementEditViewModelType.Add, _application, SelectedProvider);
             ElementEditStarted?.Invoke(this, elementEditViewModel);
         }
 
-        private bool AddElementCanExecute(object parameter)
+        private IObservable<bool>? AddElementCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ModifyElementExecute(object parameter)
+        private void ModifyElementExecute()
         {
             ElementEditViewModel elementEditViewModel = new ElementEditViewModel(ElementEditViewModelType.Modify, _application, SelectedProvider);
             ElementEditStarted?.Invoke(this, elementEditViewModel);
         }
 
-        private bool ModifyElementCanExecute(object parameter)
+        private IObservable<bool>? ModifyElementCanExecute
         {
-            bool canExecute = false;
-            if (SelectedProvider != null)
+            get
             {
-                canExecute = !SelectedProvider.IsRoot;
+                bool canExecute = false;
+                if (SelectedProvider != null)
+                {
+                    canExecute = !SelectedProvider.IsRoot;
+                }
+                return Observable.Return(canExecute);
             }
-            return canExecute;
         }
 
-        private void DeleteElementExecute(object parameter)
+        private void DeleteElementExecute()
         {
             _application.DeleteElement(SelectedProvider);
         }
 
-        private bool DeleteElementCanExecute(object parameter)
+        private IObservable<bool>? DeleteElementCanExecute
         {
-            bool canExecute = false;
-            if (SelectedProvider != null)
+            get
             {
-                canExecute = !SelectedProvider.IsRoot;
-            }
-            return canExecute;
-        }
-
-
-
-        private void MoveElementExecute(object parameter)
-        {
-            Tuple<IDsmElement, IDsmElement, int> moveParameter = parameter as Tuple<IDsmElement, IDsmElement, int>;
-            if (moveParameter != null)
-            {
-                _application.ChangeElementParent(moveParameter.Item1, moveParameter.Item2, moveParameter.Item3);
-                // TODO: Fix CommandManager.InvalidateRequerySuggested();
+                bool canExecute = false;
+                if (SelectedProvider != null)
+                {
+                    canExecute = !SelectedProvider.IsRoot;
+                }
+                return Observable.Return(canExecute);
             }
         }
 
-        private bool MoveElementCanExecute(object parameter)
+        private void MoveElementExecute()
         {
-            bool canExecute = false;
-            if (SelectedProvider != null)
-            {
-                canExecute = !SelectedProvider.IsRoot;
-            }
-            return canExecute;
+            //Tuple<IDsmElement, IDsmElement, int> moveParameter = parameter as Tuple<IDsmElement, IDsmElement, int>;
+            //if (moveParameter != null)
+            //{
+            //    _application.ChangeElementParent(moveParameter.Item1, moveParameter.Item2, moveParameter.Item3);
+            //    // TODO: Fix CommandManager.InvalidateRequerySuggested();
+            //}
         }
 
-        private void ToggleElementBookmarkExecute(object parameter)
+        private IObservable<bool>? MoveElementCanExecute
+        {
+            get
+            {
+                bool canExecute = false;
+                if (SelectedProvider != null)
+                {
+                    canExecute = !SelectedProvider.IsRoot;
+                }
+                return Observable.Return(canExecute);
+            }
+        }
+
+        private void ToggleElementBookmarkExecute()
         {
             if (SelectedProvider != null)
             {
@@ -557,46 +605,58 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             }
         }
 
-        private bool ToggleElementBookmarkCanExecute(object parameter)
+        private IObservable<bool>? ToggleElementBookmarkCanExecute
         {
-            return _selectedIndicatorViewMode == IndicatorViewMode.Bookmarks;
+            get
+            {
+                return Observable.Return(_selectedIndicatorViewMode == IndicatorViewMode.Bookmarks);
+            }
         }
 
-        private void MakeSnapshotExecute(object parameter)
+        private void MakeSnapshotExecute()
         {
             SnapshotMakeViewModel viewModel = new SnapshotMakeViewModel(_application);
             SnapshotMakeStarted?.Invoke(this, viewModel);
         }
 
-        private bool MakeSnapshotCanExecute(object parameter)
+        private IObservable<bool>? MakeSnapshotCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowHistoryExecute(object parameter)
+        private void ShowHistoryExecute()
         {
             ActionListViewModel viewModel = new ActionListViewModel(_application);
             ActionsVisible?.Invoke(this, viewModel);
         }
 
-        private bool ShowHistoryCanExecute(object parameter)
+        private IObservable<bool>? ShowHistoryCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowSettingsExecute(object parameter)
+        private void ShowSettingsExecute()
         {
             SettingsViewModel viewModel = new SettingsViewModel(_application);
             SettingsVisible?.Invoke(this, viewModel);
             ActiveMatrix?.Reload();
         }
 
-        private bool ShowSettingsCanExecute(object parameter)
+        private IObservable<bool>? ShowSettingsCanExecute
         {
-            return true;
+            get 
+            { 
+                return Observable.Return(true);
+            }
         }
 
-        private void TakeScreenshotExecute(object parameter)
+        private void TakeScreenshotExecute()
         {
             ScreenshotRequested?.Invoke(this, EventArgs.Empty);
         }

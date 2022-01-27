@@ -1,13 +1,13 @@
-﻿using System.Windows.Input;
-using DsmSuite.DsmViewer.Model.Interfaces;
+﻿using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
 using System.Collections.Generic;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Main;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Matrix
 {
-    public class ElementTreeItemViewModel : ViewModelBase
+    public class ElementTreeItemViewModel : ReactiveViewModelBase
     {
         private readonly List<ElementTreeItemViewModel> _children;
         private ElementTreeItemViewModel _parent;
@@ -48,12 +48,12 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
 
         public string Fullname => Element.Fullname;
 
-        public ICommand MoveCommand { get; }
-        public ICommand MoveUpElementCommand { get; }
-        public ICommand MoveDownElementCommand { get; }
-        public ICommand SortElementCommand { get; }
-        public ICommand ToggleElementExpandedCommand { get; }
-        public ICommand BookmarkElementCommand { get; }
+        public IReactiveCommand MoveCommand { get; }
+        public IReactiveCommand MoveUpElementCommand { get; }
+        public IReactiveCommand MoveDownElementCommand { get; }
+        public IReactiveCommand SortElementCommand { get; }
+        public IReactiveCommand ToggleElementExpandedCommand { get; }
+        public IReactiveCommand BookmarkElementCommand { get; }
 
         public IndicatorViewMode SelectedIndicatorViewMode { get; }
 

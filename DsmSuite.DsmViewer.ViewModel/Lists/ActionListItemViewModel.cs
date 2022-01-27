@@ -3,7 +3,7 @@ using DsmSuite.DsmViewer.ViewModel.Common;
 
 namespace DsmSuite.DsmViewer.ViewModel.Lists
 {
-    public class ActionListItemViewModel : ViewModelBase
+    public class ActionListItemViewModel : ReactiveViewModelBase
     {
         public ActionListItemViewModel(int index, IAction action)
         {

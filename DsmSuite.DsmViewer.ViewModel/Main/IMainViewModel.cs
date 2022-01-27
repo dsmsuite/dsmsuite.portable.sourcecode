@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Input;
+﻿using System.ComponentModel;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Lists;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Main
 {
@@ -11,21 +10,21 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         void NotifyElementsReportReady(ElementListViewModelType viewModelType, IDsmElement selectedConsumer, IDsmElement selectedProvider);
         void NotifyRelationsReportReady(RelationsListViewModelType viewModelType, IDsmElement selectedConsumer, IDsmElement selectedProvider);
 
-        ICommand ToggleElementExpandedCommand { get; }
-        ICommand MoveUpElementCommand { get; }
-        ICommand MoveDownElementCommand { get; }
+        IReactiveCommand ToggleElementExpandedCommand { get; }
+        IReactiveCommand MoveUpElementCommand { get; }
+        IReactiveCommand MoveDownElementCommand { get; }
 
-        ICommand ToggleElementBookmarkCommand { get; }
+        IReactiveCommand ToggleElementBookmarkCommand { get; }
 
-        ICommand SortElementCommand { get; }
-        ICommand ShowElementDetailMatrixCommand { get; }
-        ICommand ShowElementContextMatrixCommand { get; }
-        ICommand ShowCellDetailMatrixCommand { get; }
+        IReactiveCommand SortElementCommand { get; }
+        IReactiveCommand ShowElementDetailMatrixCommand { get; }
+        IReactiveCommand ShowElementContextMatrixCommand { get; }
+        IReactiveCommand ShowCellDetailMatrixCommand { get; }
 
-        ICommand AddElementCommand { get; }
-        ICommand ModifyElementCommand { get; }
-        ICommand DeleteElementCommand { get; }
-        ICommand ChangeElementParentCommand { get; }
+        IReactiveCommand AddElementCommand { get; }
+        IReactiveCommand ModifyElementCommand { get; }
+        IReactiveCommand DeleteElementCommand { get; }
+        IReactiveCommand ChangeElementParentCommand { get; }
 
         IndicatorViewMode SelectedIndicatorViewMode { get; }
     }

@@ -1,16 +1,18 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Reactive.Linq;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Editing.Snapshot
 {
-    public class SnapshotMakeViewModel : ViewModelBase
+    public class SnapshotMakeViewModel : ReactiveViewModelBase
     {
         private readonly IDsmApplication _application;
         private string _description;
         private string _help;
 
-        public ICommand AcceptChangeCommand { get; }
+        public IReactiveCommand AcceptChangeCommand { get; }
 
         public SnapshotMakeViewModel(IDsmApplication application)
         {
@@ -20,7 +22,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Snapshot
             Help = "";
 
             Description = "";
-            AcceptChangeCommand = new RelayCommand<object>(AcceptChangeExecute, AcceptChangeCanExecute);
+            AcceptChangeCommand = ReactiveCommand.Create(AcceptChangeExecute, AcceptChangeCanExecute);
         }
 
         public string Title { get; }
@@ -28,23 +30,26 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Snapshot
         public string Help
         {
             get { return _help; }
-            private set { _help = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _help, value); }
         }
 
         public string Description
         {
             get { return _description; }
-            set { _description = value; OnPropertyChanged();  }
+            set { this.RaiseAndSetIfChanged(ref _description, value); }
         }
 
-        private void AcceptChangeExecute(object parameter)
+        private void AcceptChangeExecute()
         {
             _application.MakeSnapshot(Description);
         }
 
-        private bool AcceptChangeCanExecute(object parameter)
+        private IObservable<bool>? AcceptChangeCanExecute
         {
-            return Description.Length > 0;
+            get
+            {
+                return Observable.Return(Description.Length > 0);
+            }
         }
     }
 }

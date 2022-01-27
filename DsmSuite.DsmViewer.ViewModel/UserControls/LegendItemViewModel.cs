@@ -2,9 +2,9 @@
 
 namespace DsmSuite.DsmViewer.ViewModel.Matrix
 {
-    public class LegendViewModel : ViewModelBase
+    public class LegendItemViewModel : ReactiveViewModelBase
     {
-        public LegendViewModel(LegendColor color, string description)
+        public LegendItemViewModel(LegendColor color, string description)
         {
             Color = color;
             Description = description;

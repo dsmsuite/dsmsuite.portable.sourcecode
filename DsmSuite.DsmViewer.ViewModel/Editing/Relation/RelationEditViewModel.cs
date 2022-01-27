@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Input;
+using System.Reactive.Linq;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
 using DsmSuite.DsmViewer.ViewModel.Main;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Editing.Relation
 {
-    public class RelationEditViewModel : ViewModelBase
+    public class RelationEditViewModel : ReactiveViewModelBase
     {
         private readonly RelationEditViewModelType _viewModelType;
         private readonly IDsmApplication _application;
@@ -43,7 +44,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Relation
                     _selectedProvider = _selectedRelation.Provider;
                     SelectedRelationType = _selectedRelation.Type;
                     Weight = _selectedRelation.Weight;
-                    AcceptChangeCommand = new RelayCommand<object>(AcceptModifyExecute, AcceptCanExecute);
+                    AcceptChangeCommand = ReactiveCommand.Create(AcceptModifyExecute, AcceptCanExecute);
                     break;
                 case RelationEditViewModelType.Add:
                     Title = "Add relation";
@@ -54,7 +55,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Relation
                     _selectedProvider = selectedProvider;
                     SelectedRelationType = _lastSelectedRelationType;
                     Weight = 1;
-                    AcceptChangeCommand = new RelayCommand<object>(AcceptAddExecute, AcceptCanExecute);
+                    AcceptChangeCommand = ReactiveCommand.Create(AcceptAddExecute, AcceptCanExecute);
                     break;
                 default:
                     break;
@@ -76,24 +77,24 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Relation
         public string SelectedRelationType
         {
             get { return _selectedRelationType; }
-            set { _selectedRelationType = value; _lastSelectedRelationType = value;  OnPropertyChanged(); }
+            set {  _lastSelectedRelationType = this.RaiseAndSetIfChanged(ref _selectedRelationType, value); }
         }
 
         public int Weight
         {
             get { return _weight; }
-            set { _weight = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _weight, value); }
         }
 
         public string Help
         {
             get { return _help; }
-            private set { _help = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _help, value); }
         }
 
-        public ICommand AcceptChangeCommand { get; }
+        public IReactiveCommand AcceptChangeCommand { get; }
 
-        private void AcceptModifyExecute(object parameter)
+        private void AcceptModifyExecute()
         {
             bool relationUpdated = false;
             if (_selectedRelation.Type != SelectedRelationType)
@@ -114,58 +115,57 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Relation
             }
         }
 
-        private void AcceptAddExecute(object parameter)
+        private void AcceptAddExecute()
         {
             IDsmRelation createdRelation = _application.CreateRelation(ConsumerSearchViewModel.SelectedElement, ProviderSearchViewModel.SelectedElement, SelectedRelationType, Weight);
             InvokeRelationUpdated(createdRelation);
         }
 
-        private bool AcceptCanExecute(object parameter)
+        private IObservable<bool>? AcceptCanExecute
         {
-            if (ConsumerSearchViewModel.SelectedElement == null)
+            get
             {
-                Help = "No consumer selected";
-                return false;
-            }
-            else if (ProviderSearchViewModel.SelectedElement == null)
-            {
-                Help = "No provider selected";
-                return false;
-            }
-            else if (ConsumerSearchViewModel.SelectedElement == ProviderSearchViewModel.SelectedElement)
-            {
-                Help = "Can not connect to itself";
-                return false;
-            }
-            else if (ConsumerSearchViewModel.SelectedElement.IsRecursiveChildOf(ProviderSearchViewModel.SelectedElement))
-            {
-                Help = "Can not connect to child";
-                return false;
-            }
-            else if (ProviderSearchViewModel.SelectedElement.IsRecursiveChildOf(ConsumerSearchViewModel.SelectedElement))
-            {
-                Help = "Can not connect to child";
-                return false;
-            }
-            else if (SelectedRelationType == null)
-            {
-                Help = "No relation type selected";
-                return false;
-            }
-            else if (Weight < 0)
-            {
-                Help = "Weight can not be negative";
-                return false;
-            }
-            else if (Weight == 0)
-            {
-                Help = "Weight can not be zero";
-                return false;
-            }
-            else
-            {
-                Help = "";
-                return true;
+                bool canExecute = false;
+
+                if (ConsumerSearchViewModel.SelectedElement == null)
+                {
+                    Help = "No consumer selected";
+                }
+                else if (ProviderSearchViewModel.SelectedElement == null)
+                {
+                    Help = "No provider selected";
+                }
+                else if (ConsumerSearchViewModel.SelectedElement == ProviderSearchViewModel.SelectedElement)
+                {
+                    Help = "Can not connect to itself";
+                }
+                else if (ConsumerSearchViewModel.SelectedElement.IsRecursiveChildOf(ProviderSearchViewModel.SelectedElement))
+                {
+                    Help = "Can not connect to child";
+                }
+                else if (ProviderSearchViewModel.SelectedElement.IsRecursiveChildOf(ConsumerSearchViewModel.SelectedElement))
+                {
+                    Help = "Can not connect to child";
+                }
+                else if (SelectedRelationType == null)
+                {
+                    Help = "No relation type selected";
+                }
+                else if (Weight < 0)
+                {
+                    Help = "Weight can not be negative";
+                }
+                else if (Weight == 0)
+                {
+                    Help = "Weight can not be zero";
+                }
+                else
+                {
+                    Help = "";
+                    canExecute = true;
+                }
+
+                return Observable.Return(canExecute);
             }
         }
         

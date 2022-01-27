@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
-using System.Windows.Input;
-using System.Windows;
 using System.Text;
 using System.Collections.ObjectModel;
 using DsmSuite.DsmViewer.Application.Interfaces;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Lists
 {
-    public class ElementListViewModel : ViewModelBase
+    public class ElementListViewModel : ReactiveViewModelBase
     {
         private readonly ElementListViewModelType _viewModelType;
         private readonly IDsmApplication _application;
@@ -72,7 +71,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Lists
 
             Elements = new ObservableCollection<ElementListItemViewModel>(elementViewModels);
 
-            CopyToClipboardCommand = new RelayCommand<object>(CopyToClipboardExecute);
+            CopyToClipboardCommand = ReactiveCommand.Create(CopyToClipboardExecute);
         }
 
         public string Title { get; }
@@ -82,9 +81,9 @@ namespace DsmSuite.DsmViewer.ViewModel.Lists
 
         public ElementListItemViewModel SelectedElement { get; set; }
 
-        public ICommand CopyToClipboardCommand { get; }
+        public IReactiveCommand CopyToClipboardCommand { get; }
 
-        private void CopyToClipboardExecute(object parameter)
+        private void CopyToClipboardExecute()
         {
             StringBuilder builder = new StringBuilder();
             foreach (ElementListItemViewModel viewModel in Elements)

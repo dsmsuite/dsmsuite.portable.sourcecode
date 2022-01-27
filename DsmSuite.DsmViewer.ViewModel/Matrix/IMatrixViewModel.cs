@@ -1,16 +1,16 @@
-﻿using System.Windows.Input;
+﻿using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Matrix
 {
     public interface IMatrixViewModel
     {
-        ICommand ToggleElementExpandedCommand { get; }
-        ICommand SortElementCommand { get; }
-        ICommand MoveUpElementCommand { get; }
-        ICommand MoveDownElementCommand { get; }
+        IReactiveCommand ToggleElementExpandedCommand { get; }
+        IReactiveCommand SortElementCommand { get; }
+        IReactiveCommand MoveUpElementCommand { get; }
+        IReactiveCommand MoveDownElementCommand { get; }
 
-        ICommand ToggleElementBookmarkCommand { get; }
+        IReactiveCommand ToggleElementBookmarkCommand { get; }
 
-        ICommand ChangeElementParentCommand { get; }
+        IReactiveCommand ChangeElementParentCommand { get; }
     }
 }

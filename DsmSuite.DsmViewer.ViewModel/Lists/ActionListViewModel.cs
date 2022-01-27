@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
-using System.Windows.Input;
-using System.Windows;
 using System.Text;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Lists
 {
-    public class ActionListViewModel : ViewModelBase
+    public class ActionListViewModel : ReactiveViewModelBase
     {
         private readonly IDsmApplication _application;
         private IEnumerable<ActionListItemViewModel> _actions;
@@ -21,8 +20,8 @@ namespace DsmSuite.DsmViewer.ViewModel.Lists
 
             UpdateActionList();
             
-            CopyToClipboardCommand =  new RelayCommand<object>(CopyToClipboardExecute);
-            ClearCommand = new RelayCommand<object>(ClearExecute);
+            CopyToClipboardCommand =  ReactiveCommand.Create(CopyToClipboardExecute);
+            ClearCommand = ReactiveCommand.Create(ClearExecute);
         }
 
         private void OnActionPerformed(object sender, System.EventArgs e)
@@ -36,13 +35,13 @@ namespace DsmSuite.DsmViewer.ViewModel.Lists
         public IEnumerable<ActionListItemViewModel> Actions
         {
             get { return _actions; }
-            set { _actions = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _actions, value); }
         }
 
-        public ICommand CopyToClipboardCommand { get; }
-        public ICommand ClearCommand { get; }
+        public IReactiveCommand CopyToClipboardCommand { get; }
+        public IReactiveCommand ClearCommand { get; }
 
-        private void CopyToClipboardExecute(object parameter)
+        private void CopyToClipboardExecute()
         {
             StringBuilder builder = new StringBuilder();
             foreach(ActionListItemViewModel viewModel in Actions)
@@ -52,7 +51,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Lists
             // TODO: Fix Clipboard.SetText(builder.ToString());
         }
 
-        private void ClearExecute(object parameter)
+        private void ClearExecute()
         {
             _application.ClearActions();
             UpdateActionList();

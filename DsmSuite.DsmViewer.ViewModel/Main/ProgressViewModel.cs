@@ -1,10 +1,11 @@
 ﻿using System;
 using DsmSuite.DsmViewer.ViewModel.Common;
 using DsmSuite.Common.Util;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Main
 {
-    public class ProgressViewModel : ViewModelBase
+    public class ProgressViewModel : ReactiveViewModelBase
     {
         public event EventHandler<bool> BusyChanged;
 
@@ -28,13 +29,13 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         public string Action
         {
             get { return _action; }
-            set { _action = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _action, value); }
         }
 
         public string Text
         {
             get { return _text; }
-            set { _text = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _text, value); }
         }
 
         public bool Busy
@@ -44,8 +45,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             {
                 if (_busy != value)
                 {
-                    _busy = value;
-                    OnPropertyChanged();
+                    this.RaiseAndSetIfChanged(ref _busy, value);
                     BusyChanged?.Invoke(this, _busy);
                 }
             }
@@ -54,13 +54,13 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
         public int ProgressValue
         {
             get { return _progressValue; }
-            set { _progressValue = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _progressValue, value); }
         }
 
         public string ProgressText
         {
             get { return _progressText; }
-            set { _progressText = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _progressText, value); }
         }
     }
 }

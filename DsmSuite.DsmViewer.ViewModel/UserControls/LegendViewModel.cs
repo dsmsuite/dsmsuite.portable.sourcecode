@@ -1,13 +1,17 @@
 ﻿using DsmSuite.DsmViewer.ViewModel.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DsmSuite.DsmViewer.ViewModel.Main;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.UserControls
 {
-    public class LegendViewModel : ViewModelBase
+    public class LegendViewModel : ReactiveViewModelBase
     {
+        private IndicatorViewMode _selectedIndicatorViewMode;
+
+        public IndicatorViewMode SelectedIndicatorViewMode
+        {
+            get { return _selectedIndicatorViewMode; }
+            set { this.RaiseAndSetIfChanged(ref _selectedIndicatorViewMode, value); }
+        }
     }
 }

@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Reactive.Linq;
 using DsmSuite.Common.Util;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
+using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Editing.Element
 {
-    public class ElementEditViewModel : ViewModelBase
+    public class ElementEditViewModel : ReactiveViewModelBase
     {
         private readonly ElementEditViewModelType _viewModelType;
         private readonly IDsmApplication _application;
@@ -19,7 +21,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Element
 
         private static string _lastSelectedElementType = "";
 
-        public ICommand AcceptChangeCommand { get; }
+        public IReactiveCommand AcceptChangeCommand { get; }
 
         public ElementEditViewModel(ElementEditViewModelType viewModelType, IDsmApplication application, IDsmElement selectedElement)
         {
@@ -36,7 +38,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Element
                     _selectedElement = selectedElement;
                     Name = _selectedElement.Name;
                     SelectedElementType = _selectedElement.Type;
-                    AcceptChangeCommand = new RelayCommand<object>(AcceptModifyExecute, AcceptCanExecute);
+                    AcceptChangeCommand = ReactiveCommand.Create(AcceptModifyExecute, AcceptCanExecute);
                     break;
                 case ElementEditViewModelType.Add:
                     Title = "Add element";
@@ -44,7 +46,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Element
                     _selectedElement = null;
                     Name = "";
                     SelectedElementType = _lastSelectedElementType;
-                    AcceptChangeCommand = new RelayCommand<object>(AcceptAddExecute, AcceptCanExecute);
+                    AcceptChangeCommand = ReactiveCommand.Create(AcceptAddExecute, AcceptCanExecute);
                     break;
                 default:
                     break;
@@ -56,13 +58,13 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Element
         public string Help
         {
             get { return _help; }
-            private set { _help = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _help, value); }
         }
 
         public string Name
         {
             get { return _name; }
-            set { _name = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _name, value); }
         }
 
         public List<string> ElementTypes { get; }
@@ -70,15 +72,15 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Element
         public string SelectedElementType
         {
             get { return _selectedElementType; }
-            set { _selectedElementType = value; _lastSelectedElementType = value; OnPropertyChanged(); }
+            set { _lastSelectedElementType = this.RaiseAndSetIfChanged(ref _selectedElementType, value); }
         }
 
-        private void AcceptAddExecute(object parameter)
+        private void AcceptAddExecute()
         {
             _application.CreateElement(Name, SelectedElementType, _parentElement);
         }
 
-        private void AcceptModifyExecute(object parameter)
+        private void AcceptModifyExecute()
         {
             if (_selectedElement.Name != Name)
             {
@@ -91,31 +93,34 @@ namespace DsmSuite.DsmViewer.ViewModel.Editing.Element
             }
         }
 
-        private bool AcceptCanExecute(object parameter)
+        private IObservable<bool>? AcceptCanExecute
         {
-            ElementName elementName = new ElementName(_parentElement.Fullname);
-            elementName.AddNamePart(Name);
-            IDsmElement existingElement = _application.GetElementByFullname(elementName.FullName);
+            get
+            {
+                bool canExecute = false;
+                ElementName elementName = new ElementName(_parentElement.Fullname);
+                elementName.AddNamePart(Name);
+                IDsmElement existingElement = _application.GetElementByFullname(elementName.FullName);
 
-            if (Name.Length == 0)
-            {
-                Help = "Name can not be empty";
-                return false;
-            }
-            else if (Name.Contains("."))
-            {
-                Help = "Name can not be contain dot character";
-                return false;
-            }
-            else if ((existingElement != _selectedElement) && (existingElement != null))
-            {
-                Help = "Name can not be an existing name";
-                return false;
-            }
-            else
-            {
-                Help = "";
-                return true;
+                if (Name.Length == 0)
+                {
+                    Help = "Name can not be empty";
+                }
+                else if (Name.Contains("."))
+                {
+                    Help = "Name can not be contain dot character";
+                }
+                else if ((existingElement != _selectedElement) && (existingElement != null))
+                {
+                    Help = "Name can not be an existing name";
+                }
+                else
+                {
+                    Help = "";
+                    canExecute = true;
+                }
+
+                return Observable.Return(canExecute);
             }
         }
     }

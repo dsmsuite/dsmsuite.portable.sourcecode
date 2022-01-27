@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace DsmSuite.DsmViewer.ViewModel.Lists
 {
-    public class RelationListItemViewModel : ViewModelBase, IComparable
+    public class RelationListItemViewModel : ReactiveViewModelBase, IComparable
     {
         public RelationListItemViewModel(IDsmApplication application, IDsmRelation relation)
         {

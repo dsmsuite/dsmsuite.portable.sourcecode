@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using DsmSuite.DsmViewer.ViewModel.Common;
-using System.Windows.Input;
-using System.Windows;
 using System.Text;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using System.Collections.ObjectModel;
 using DsmSuite.DsmViewer.ViewModel.Editing.Relation;
 using System;
+using ReactiveUI;
+using System.Reactive.Linq;
 
 namespace DsmSuite.DsmViewer.ViewModel.Lists
 {
-    public class RelationListViewModel : ViewModelBase
+    public class RelationListViewModel : ReactiveViewModelBase
     {
         private readonly RelationsListViewModelType _viewModelType;
         private readonly IDsmApplication _application;
@@ -35,28 +35,28 @@ namespace DsmSuite.DsmViewer.ViewModel.Lists
             {
                 case RelationsListViewModelType.ElementIngoingRelations:
                     SubTitle = $"Ingoing relations of {_selectedProvider.Fullname}";
-                    AddRelationCommand = new RelayCommand<object>(AddConsumerRelationExecute, AddRelationCanExecute);
+                    AddRelationCommand = ReactiveCommand.Create(AddConsumerRelationExecute, AddRelationCanExecute);
                     break;
                 case RelationsListViewModelType.ElementOutgoingRelations:
                     SubTitle = $"Outgoing relations of {_selectedProvider.Fullname}";
-                    AddRelationCommand = new RelayCommand<object>(AddProviderRelationExecute, AddRelationCanExecute);
+                    AddRelationCommand = ReactiveCommand.Create(AddProviderRelationExecute, AddRelationCanExecute);
                     break;
                 case RelationsListViewModelType.ElementInternalRelations:
                     SubTitle = $"Internal relations of {_selectedProvider.Fullname}";
-                    AddRelationCommand = new RelayCommand<object>(AddInternalRelationExecute, AddRelationCanExecute);
+                    AddRelationCommand = ReactiveCommand.Create(AddInternalRelationExecute, AddRelationCanExecute);
                     break;
                 case RelationsListViewModelType.ConsumerProviderRelations:
                     SubTitle = $"Relations between consumer {_selectedConsumer.Fullname} and provider {_selectedProvider.Fullname}";
-                    AddRelationCommand = new RelayCommand<object>(AddConsumerProviderRelationExecute, AddRelationCanExecute);
+                    AddRelationCommand = ReactiveCommand.Create(AddConsumerProviderRelationExecute, AddRelationCanExecute);
                     break;
                 default:
                     SubTitle = "";
                     break;
             }
 
-            CopyToClipboardCommand = new RelayCommand<object>(CopyToClipboardExecute);
-            DeleteRelationCommand = new RelayCommand<object>(DeleteRelationExecute, DeleteRelationCanExecute);
-            EditRelationCommand = new RelayCommand<object>(EditRelationExecute, EditRelationCanExecute);
+            CopyToClipboardCommand = ReactiveCommand.Create(CopyToClipboardExecute);
+            DeleteRelationCommand = ReactiveCommand.Create(DeleteRelationExecute, DeleteRelationCanExecute);
+            EditRelationCommand = ReactiveCommand.Create(EditRelationExecute, EditRelationCanExecute);
 
             UpdateRelations(null);
         }
@@ -67,22 +67,21 @@ namespace DsmSuite.DsmViewer.ViewModel.Lists
         public ObservableCollection<RelationListItemViewModel> Relations
         {
             get { return _relations; }
-            private set { _relations = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _relations, value); }
         }
 
         public RelationListItemViewModel SelectedRelation
         {
             get { return _selectedRelation; }
-            set { _selectedRelation = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _selectedRelation, value); }
         }
 
-        public ICommand CopyToClipboardCommand { get; }
+        public IReactiveCommand CopyToClipboardCommand { get; }
+        public IReactiveCommand DeleteRelationCommand { get; }
+        public IReactiveCommand EditRelationCommand { get; }
+        public IReactiveCommand AddRelationCommand { get; }
 
-        public ICommand DeleteRelationCommand { get; }
-        public ICommand EditRelationCommand { get; }
-        public ICommand AddRelationCommand { get; }
-
-        private void CopyToClipboardExecute(object parameter)
+        private void CopyToClipboardExecute()
         {
             StringBuilder builder = new StringBuilder();
             foreach (RelationListItemViewModel viewModel in Relations)
@@ -92,60 +91,69 @@ namespace DsmSuite.DsmViewer.ViewModel.Lists
             // TODO: Fix Clipboard.SetText(builder.ToString());
         }
 
-        private void DeleteRelationExecute(object parameter)
+        private void DeleteRelationExecute()
         {
             _application.DeleteRelation(SelectedRelation.Relation);
             UpdateRelations(SelectedRelation.Relation);
         }
 
-        private bool DeleteRelationCanExecute(object parameter)
+        private IObservable<bool>? DeleteRelationCanExecute
         {
-            return SelectedRelation != null;
+            get
+            {
+                return Observable.Return(SelectedRelation != null);
+            }
         }
 
-        private void EditRelationExecute(object parameter)
+        private void EditRelationExecute()
         {
             RelationEditViewModel relationEditViewModel = new RelationEditViewModel(RelationEditViewModelType.Modify, _application, SelectedRelation.Relation, null, null, null, null);
             relationEditViewModel.RelationUpdated += OnRelationUpdated;
             RelationEditStarted?.Invoke(this, relationEditViewModel);
         }
 
-        private bool EditRelationCanExecute(object parameter)
+        private IObservable<bool>? EditRelationCanExecute
         {
-            return SelectedRelation != null;
+            get
+            {
+                return Observable.Return(SelectedRelation != null);
+            }
         }
 
-        private void AddConsumerRelationExecute(object parameter)
+        private void AddConsumerRelationExecute()
         {
             RelationEditViewModel relationEditViewModel = new RelationEditViewModel(RelationEditViewModelType.Add, _application, null, _application.RootElement, null, null, _selectedProvider);
             relationEditViewModel.RelationUpdated += OnRelationUpdated;
             RelationAddStarted?.Invoke(this, relationEditViewModel);
         }
 
-        private void AddProviderRelationExecute(object parameter)
+        private void AddProviderRelationExecute()
         {
             RelationEditViewModel relationEditViewModel = new RelationEditViewModel(RelationEditViewModelType.Add, _application, null, null, _selectedProvider, _application.RootElement, null);
             relationEditViewModel.RelationUpdated += OnRelationUpdated;
             RelationAddStarted?.Invoke(this, relationEditViewModel);
         }
 
-        private void AddInternalRelationExecute(object parameter)
+        private void AddInternalRelationExecute()
         {
             RelationEditViewModel relationEditViewModel = new RelationEditViewModel(RelationEditViewModelType.Add, _application, null, _selectedProvider, null, _selectedProvider, null);
             relationEditViewModel.RelationUpdated += OnRelationUpdated;
             RelationAddStarted?.Invoke(this, relationEditViewModel);
         }
 
-        private void AddConsumerProviderRelationExecute(object parameter)
+        private void AddConsumerProviderRelationExecute()
         {
             RelationEditViewModel relationEditViewModel = new RelationEditViewModel(RelationEditViewModelType.Add, _application, null, _selectedConsumer, null, _selectedProvider, null);
             relationEditViewModel.RelationUpdated += OnRelationUpdated;
             RelationAddStarted?.Invoke(this, relationEditViewModel);
         }
 
-        private bool AddRelationCanExecute(object parameter)
+        private IObservable<bool>? AddRelationCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
         private void OnRelationUpdated(object sender, IDsmRelation updatedRelation)

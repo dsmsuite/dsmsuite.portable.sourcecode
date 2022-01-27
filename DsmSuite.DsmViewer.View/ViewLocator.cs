@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using DsmSuite.DsmViewer.ViewModel.Common;
-using DsmSuite.Viewer.View.ViewModels;
 using System;
 
 namespace DsmSuite.Viewer.View
@@ -25,7 +24,7 @@ namespace DsmSuite.Viewer.View
 
         public bool Match(object data)
         {
-            return data is ViewModelBase;
+            return data is ReactiveViewModelBase;
         }
     }
 }

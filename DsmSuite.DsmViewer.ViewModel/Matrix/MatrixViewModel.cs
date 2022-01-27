@@ -2,15 +2,17 @@
 using DsmSuite.DsmViewer.ViewModel.Common;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Main;
 using DsmSuite.DsmViewer.ViewModel.Lists;
+using ReactiveUI;
+using System;
+using System.Reactive.Linq;
 
 namespace DsmSuite.DsmViewer.ViewModel.Matrix
 {
-    public class MatrixViewModel : ViewModelBase, IMatrixViewModel
+    public class MatrixViewModel : ReactiveViewModelBase, IMatrixViewModel
     {
         private double _zoomLevel;
         private readonly IMainViewModel _mainViewModel;
@@ -61,25 +63,25 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
             ChangeElementParentCommand = mainViewModel.ChangeElementParentCommand;
             DeleteElementCommand = mainViewModel.DeleteElementCommand;
 
-            ShowElementIngoingRelationsCommand = new RelayCommand<object>(ShowElementIngoingRelationsExecute, ShowElementIngoingRelationsCanExecute);
-            ShowElementOutgoingRelationCommand = new RelayCommand<object>(ShowElementOutgoingRelationExecute, ShowElementOutgoingRelationCanExecute);
-            ShowElementinternalRelationsCommand = new RelayCommand<object>(ShowElementinternalRelationsExecute, ShowElementinternalRelationsCanExecute);
+            ShowElementIngoingRelationsCommand = ReactiveCommand.Create(ShowElementIngoingRelationsExecute, ShowElementIngoingRelationsCanExecute);
+            ShowElementOutgoingRelationCommand = ReactiveCommand.Create(ShowElementOutgoingRelationExecute, ShowElementOutgoingRelationCanExecute);
+            ShowElementinternalRelationsCommand = ReactiveCommand.Create(ShowElementinternalRelationsExecute, ShowElementinternalRelationsCanExecute);
 
-            ShowElementConsumersCommand = new RelayCommand<object>(ShowElementConsumersExecute, ShowConsumersCanExecute);
-            ShowElementProvidedInterfacesCommand = new RelayCommand<object>(ShowProvidedInterfacesExecute, ShowElementProvidedInterfacesCanExecute);
-            ShowElementRequiredInterfacesCommand = new RelayCommand<object>(ShowElementRequiredInterfacesExecute, ShowElementRequiredInterfacesCanExecute);
+            ShowElementConsumersCommand = ReactiveCommand.Create(ShowElementConsumersExecute, ShowConsumersCanExecute);
+            ShowElementProvidedInterfacesCommand = ReactiveCommand.Create(ShowProvidedInterfacesExecute, ShowElementProvidedInterfacesCanExecute);
+            ShowElementRequiredInterfacesCommand = ReactiveCommand.Create(ShowElementRequiredInterfacesExecute, ShowElementRequiredInterfacesCanExecute);
             ShowCellDetailMatrixCommand = mainViewModel.ShowCellDetailMatrixCommand;
 
-            ShowCellRelationsCommand = new RelayCommand<object>(ShowCellRelationsExecute, ShowCellRelationsCanExecute);
-            ShowCellConsumersCommand = new RelayCommand<object>(ShowCellConsumersExecute, ShowCellConsumersCanExecute);
-            ShowCellProvidersCommand = new RelayCommand<object>(ShowCellProvidersExecute, ShowCellProvidersCanExecute);
+            ShowCellRelationsCommand = ReactiveCommand.Create(ShowCellRelationsExecute, ShowCellRelationsCanExecute);
+            ShowCellConsumersCommand = ReactiveCommand.Create(ShowCellConsumersExecute, ShowCellConsumersCanExecute);
+            ShowCellProvidersCommand = ReactiveCommand.Create(ShowCellProvidersExecute, ShowCellProvidersCanExecute);
             ShowElementDetailMatrixCommand = mainViewModel.ShowElementDetailMatrixCommand;
             ShowElementContextMatrixCommand = mainViewModel.ShowElementContextMatrixCommand;
 
-            ToggleMetricsViewExpandedCommand = new RelayCommand<object>(ToggleMetricsViewExpandedExecute, ToggleMetricsViewExpandedCanExecute);
+            ToggleMetricsViewExpandedCommand = ReactiveCommand.Create(ToggleMetricsViewExpandedExecute, ToggleMetricsViewExpandedCanExecute);
 
-            PreviousMetricCommand = new RelayCommand<object>(PreviousMetricExecute, PreviousMetricCanExecute);
-            NextMetricCommand = new RelayCommand<object>(NextMetricExecute, NextMetricCanExecute);
+            PreviousMetricCommand = ReactiveCommand.Create(PreviousMetricExecute, PreviousMetricCanExecute);
+            NextMetricCommand = ReactiveCommand.Create(NextMetricExecute, NextMetricCanExecute);
 
             Reload();
 
@@ -103,67 +105,66 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
             SelectedMetricTypeName = _metricTypeNames[_selectedMetricType];
         }
 
-        public ICommand ToggleElementExpandedCommand { get; }
+        public IReactiveCommand ToggleElementExpandedCommand { get; }
 
-        public ICommand SortElementCommand { get; }
-        public ICommand MoveUpElementCommand { get; }
-        public ICommand MoveDownElementCommand { get; }
+        public IReactiveCommand SortElementCommand { get; }
+        public IReactiveCommand MoveUpElementCommand { get; }
+        public IReactiveCommand MoveDownElementCommand { get; }
 
-        public ICommand ToggleElementBookmarkCommand { get; }
+        public IReactiveCommand ToggleElementBookmarkCommand { get; }
 
-        public ICommand AddElementCommand { get; }
-        public ICommand ModifyElementCommand { get; }
-        public ICommand ChangeElementParentCommand { get; }
-        public ICommand DeleteElementCommand { get; }
+        public IReactiveCommand AddElementCommand { get; }
+        public IReactiveCommand ModifyElementCommand { get; }
+        public IReactiveCommand ChangeElementParentCommand { get; }
+        public IReactiveCommand DeleteElementCommand { get; }
 
-        public ICommand ShowElementIngoingRelationsCommand { get; }
-        public ICommand ShowElementOutgoingRelationCommand { get; }
-        public ICommand ShowElementinternalRelationsCommand { get; }
+        public IReactiveCommand ShowElementIngoingRelationsCommand { get; }
+        public IReactiveCommand ShowElementOutgoingRelationCommand { get; }
+        public IReactiveCommand ShowElementinternalRelationsCommand { get; }
 
-        public ICommand ShowElementConsumersCommand { get; }
-        public ICommand ShowElementProvidedInterfacesCommand { get; }
-        public ICommand ShowElementRequiredInterfacesCommand { get; }
-        public ICommand ShowElementDetailMatrixCommand { get; }
-        public ICommand ShowElementContextMatrixCommand { get; }
+        public IReactiveCommand ShowElementConsumersCommand { get; }
+        public IReactiveCommand ShowElementProvidedInterfacesCommand { get; }
+        public IReactiveCommand ShowElementRequiredInterfacesCommand { get; }
+        public IReactiveCommand ShowElementDetailMatrixCommand { get; }
+        public IReactiveCommand ShowElementContextMatrixCommand { get; }
 
-        public ICommand ShowCellRelationsCommand { get; }
-        public ICommand ShowCellConsumersCommand { get; }
-        public ICommand ShowCellProvidersCommand { get; }
-        public ICommand ShowCellDetailMatrixCommand { get; }
+        public IReactiveCommand ShowCellRelationsCommand { get; }
+        public IReactiveCommand ShowCellConsumersCommand { get; }
+        public IReactiveCommand ShowCellProvidersCommand { get; }
+        public IReactiveCommand ShowCellDetailMatrixCommand { get; }
 
-        public ICommand PreviousMetricCommand { get; }
-        public ICommand NextMetricCommand { get; }
+        public IReactiveCommand PreviousMetricCommand { get; }
+        public IReactiveCommand NextMetricCommand { get; }
 
-        public ICommand ToggleMetricsViewExpandedCommand { get; }
+        public IReactiveCommand ToggleMetricsViewExpandedCommand { get; }
 
         public string SelectedMetricTypeName
         {
             get { return _selectedMetricTypeName; }
             set
             {
-                _selectedMetricTypeName = value;
+                this.RaiseAndSetIfChanged(ref _selectedMetricTypeName, value);
                 _selectedMetricType = _metricTypeNames.FirstOrDefault(x => x.Value == _selectedMetricTypeName).Key;
                 Reload();
-                OnPropertyChanged();
             }
         }
 
         public int MatrixSize
         {
             get { return _matrixSize; }
-            set { _matrixSize = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _matrixSize, value); }
         }
 
         public bool IsMetricsViewExpanded
         {
             get { return _isMetricsViewExpanded; }
-            set { _isMetricsViewExpanded = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _isMetricsViewExpanded, value); }
         }
 
         public ObservableCollection<ElementTreeItemViewModel> ElementViewModelTree
         {
             get { return _elementViewModelTree; }
-            private set { _elementViewModelTree = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _elementViewModelTree, value); }
         }
 
         public IReadOnlyList<MatrixColor> ColumnColors => _columnColors;
@@ -175,7 +176,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
         public double ZoomLevel
         {
             get { return _zoomLevel; }
-            set { _zoomLevel = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _zoomLevel, value); }
         }
 
         public void Reload()
@@ -285,13 +286,13 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
         public int? SelectedRow
         {
             get { return _selectedRow; }
-            private set { _selectedRow = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _selectedRow, value); }
         }
 
         public int? SelectedColumn
         {
             get { return _selectedColumn; }
-            private set { _selectedColumn = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _selectedColumn, value); }
         }
 
         public void HoverRow(int? row)
@@ -317,13 +318,13 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
         public int? HoveredRow
         {
             get { return _hoveredRow; }
-            private set { _hoveredRow = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _hoveredRow, value); }
         }
 
         public int? HoveredColumn
         {
             get { return _hoveredColumn; }
-            private set { _hoveredColumn = value; OnPropertyChanged(); }
+            private set { this.RaiseAndSetIfChanged(ref _hoveredColumn, value); }
         }
 
         public IDsmElement SelectedConsumer
@@ -346,13 +347,13 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
         public ElementToolTipViewModel ColumnHeaderToolTipViewModel
         {
             get { return _columnHeaderTooltipViewModel; }
-            set { _columnHeaderTooltipViewModel = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _columnHeaderTooltipViewModel, value); }
         }
 
         public CellToolTipViewModel CellToolTipViewModel
         {
             get { return _cellTooltipViewModel; }
-            set { _cellTooltipViewModel = value; OnPropertyChanged(); }
+            set { this.RaiseAndSetIfChanged(ref _cellTooltipViewModel, value); }
         }
 
         public IEnumerable<string> MetricTypes => _metricTypeNames.Values;
@@ -631,127 +632,163 @@ namespace DsmSuite.DsmViewer.ViewModel.Matrix
             }
         }
 
-        private void ShowCellConsumersExecute(object parameter)
+        private void ShowCellConsumersExecute()
         {
             _mainViewModel.NotifyElementsReportReady(ElementListViewModelType.RelationConsumers, SelectedConsumer, SelectedProvider);
         }
 
-        private bool ShowCellConsumersCanExecute(object parameter)
+        private IObservable<bool>? ShowCellConsumersCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowCellProvidersExecute(object parameter)
+        private void ShowCellProvidersExecute()
         {
             _mainViewModel.NotifyElementsReportReady(ElementListViewModelType.RelationProviders, SelectedConsumer, SelectedProvider);
         }
 
-        private bool ShowCellProvidersCanExecute(object parameter)
+        private IObservable<bool>? ShowCellProvidersCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowElementIngoingRelationsExecute(object parameter)
+        private void ShowElementIngoingRelationsExecute()
         {
             _mainViewModel.NotifyRelationsReportReady(RelationsListViewModelType.ElementIngoingRelations, null, SelectedProvider);
         }
 
-        private bool ShowElementIngoingRelationsCanExecute(object parameter)
+        private IObservable<bool>? ShowElementIngoingRelationsCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowElementOutgoingRelationExecute(object parameter)
+        private void ShowElementOutgoingRelationExecute()
         {
             var relations = _application.FindOutgoingRelations(SelectedProvider);
             _mainViewModel.NotifyRelationsReportReady(RelationsListViewModelType.ElementOutgoingRelations, null, SelectedProvider);
         }
 
-        private bool ShowElementOutgoingRelationCanExecute(object parameter)
+        private IObservable<bool>? ShowElementOutgoingRelationCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowElementinternalRelationsExecute(object parameter)
+        private void ShowElementinternalRelationsExecute()
         {
             _mainViewModel.NotifyRelationsReportReady(RelationsListViewModelType.ElementInternalRelations, null, SelectedProvider);
         }
 
-        private bool ShowElementinternalRelationsCanExecute(object parameter)
+        private IObservable<bool>? ShowElementinternalRelationsCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowElementConsumersExecute(object parameter)
+        private void ShowElementConsumersExecute()
         {
             _mainViewModel.NotifyElementsReportReady(ElementListViewModelType.ElementConsumers, null, SelectedProvider);
         }
 
-        private bool ShowConsumersCanExecute(object parameter)
+        private IObservable<bool>? ShowConsumersCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowProvidedInterfacesExecute(object parameter)
+        private void ShowProvidedInterfacesExecute()
         {
             _mainViewModel.NotifyElementsReportReady(ElementListViewModelType.ElementProvidedInterface, null, SelectedProvider);
         }
 
-        private bool ShowElementProvidedInterfacesCanExecute(object parameter)
+        private IObservable<bool>? ShowElementProvidedInterfacesCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowElementRequiredInterfacesExecute(object parameter)
+        private void ShowElementRequiredInterfacesExecute()
         {
             _mainViewModel.NotifyElementsReportReady(ElementListViewModelType.ElementRequiredInterface, null, SelectedProvider);
         }
 
-        private bool ShowElementRequiredInterfacesCanExecute(object parameter)
+        private IObservable<bool>? ShowElementRequiredInterfacesCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ShowCellRelationsExecute(object parameter)
+        private void ShowCellRelationsExecute()
         {
             _mainViewModel.NotifyRelationsReportReady(RelationsListViewModelType.ConsumerProviderRelations, SelectedConsumer, SelectedProvider);
         }
 
-        private bool ShowCellRelationsCanExecute(object parameter)
+        private IObservable<bool>? ShowCellRelationsCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void ToggleMetricsViewExpandedExecute(object parameter)
+        private void ToggleMetricsViewExpandedExecute()
         {
             IsMetricsViewExpanded = !IsMetricsViewExpanded;
         }
 
-        private bool ToggleMetricsViewExpandedCanExecute(object parameter)
+        private IObservable<bool>? ToggleMetricsViewExpandedCanExecute
         {
-            return true;
+            get
+            {
+                return Observable.Return(true);
+            }
         }
 
-        private void PreviousMetricExecute(object parameter)
+        private void PreviousMetricExecute()
         {
             _selectedMetricType--;
             SelectedMetricTypeName = _metricTypeNames[_selectedMetricType];
         }
 
-        private bool PreviousMetricCanExecute(object parameter)
+        private IObservable<bool>? PreviousMetricCanExecute
         {
-            return _selectedMetricType != MetricType.NumberOfElements;
+            get
+            {
+                return Observable.Return(_selectedMetricType != MetricType.NumberOfElements);
+            }
         }
 
-        private void NextMetricExecute(object parameter)
+        private void NextMetricExecute()
         {
             _selectedMetricType++;
             SelectedMetricTypeName = _metricTypeNames[_selectedMetricType];
         }
 
-        private bool NextMetricCanExecute(object parameter)
+        private IObservable<bool>? NextMetricCanExecute
         {
-            return _selectedMetricType != MetricType.CycalityPercentage;
+            get
+            {
+                return Observable.Return(_selectedMetricType != MetricType.CycalityPercentage);
+            }
         }
 
         private void UpdateColumnHeaderTooltip(int? column)

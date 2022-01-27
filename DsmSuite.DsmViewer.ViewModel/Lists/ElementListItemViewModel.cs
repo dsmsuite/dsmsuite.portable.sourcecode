@@ -5,7 +5,7 @@ using DsmSuite.DsmViewer.ViewModel.Common;
 
 namespace DsmSuite.DsmViewer.ViewModel.Lists
 {
-    public class ElementListItemViewModel : ViewModelBase, IComparable
+    public class ElementListItemViewModel : ReactiveViewModelBase, IComparable
     {
         public ElementListItemViewModel(IDsmElement element)
         {

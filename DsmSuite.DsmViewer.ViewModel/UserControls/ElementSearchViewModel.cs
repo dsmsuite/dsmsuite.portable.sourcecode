@@ -4,9 +4,7 @@ using DsmSuite.DsmViewer.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using ReactiveUI;
-using System.Reactive;
 using System.Reactive.Linq;
 
 namespace DsmSuite.DsmViewer.ViewModel.Main
@@ -59,7 +57,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
 
         public List<string> ElementTypes { get; }
 
-        public ReactiveCommand<Unit, Unit> ClearSearchCommand { get; }
+        public IReactiveCommand ClearSearchCommand { get; }
 
         public string SearchPath
         {
@@ -79,7 +77,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             {
                 if (_searchText != value)
                 {
-                    _searchText = this.RaiseAndSetIfChanged(ref _searchText, value); ;
+                    _searchText = this.RaiseAndSetIfChanged(ref _searchText, value);
                     OnSearchTextUpdated();
                 }      
             }
