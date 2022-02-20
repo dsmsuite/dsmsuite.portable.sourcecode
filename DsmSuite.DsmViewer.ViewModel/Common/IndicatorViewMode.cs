@@ -1,4 +1,4 @@
-﻿namespace DsmSuite.DsmViewer.ViewModel.Main
+﻿namespace DsmSuite.DsmViewer.ViewModel.Common
 {
     public enum IndicatorViewMode
     {

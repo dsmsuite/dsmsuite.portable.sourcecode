@@ -1,8 +1,7 @@
 ﻿using DsmSuite.DsmViewer.ViewModel.Common;
-using DsmSuite.DsmViewer.ViewModel.Main;
 using ReactiveUI;
 
-namespace DsmSuite.DsmViewer.ViewModel.UserControls
+namespace DsmSuite.DsmViewer.ViewModel.Legend
 {
     public class LegendViewModel : ReactiveViewModelBase
     {

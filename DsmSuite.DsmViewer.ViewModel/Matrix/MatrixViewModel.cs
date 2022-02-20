@@ -9,6 +9,8 @@ using DsmSuite.DsmViewer.ViewModel.Lists;
 using ReactiveUI;
 using System;
 using System.Reactive.Linq;
+using DsmSuite.DsmViewer.ViewModel.Lists.Element;
+using DsmSuite.DsmViewer.ViewModel.Lists.Relation;
 
 namespace DsmSuite.DsmViewer.ViewModel.Matrix
 {

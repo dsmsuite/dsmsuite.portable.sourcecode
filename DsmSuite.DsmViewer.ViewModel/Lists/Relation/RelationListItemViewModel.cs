@@ -4,7 +4,7 @@ using DsmSuite.DsmViewer.ViewModel.Common;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using System.Collections.Generic;
 
-namespace DsmSuite.DsmViewer.ViewModel.Lists
+namespace DsmSuite.DsmViewer.ViewModel.Lists.Relation
 {
     public class RelationListItemViewModel : ReactiveViewModelBase, IComparable
     {

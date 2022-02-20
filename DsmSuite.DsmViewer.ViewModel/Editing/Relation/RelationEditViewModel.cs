@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
-using DsmSuite.DsmViewer.ViewModel.Main;
+using DsmSuite.DsmViewer.ViewModel.Search;
 using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Editing.Relation

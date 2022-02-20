@@ -1,4 +1,4 @@
-﻿namespace DsmSuite.DsmViewer.ViewModel.Matrix
+﻿namespace DsmSuite.DsmViewer.ViewModel.Legend
 {
     public enum LegendColor
     {

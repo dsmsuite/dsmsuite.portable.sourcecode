@@ -1,5 +1,6 @@
 ﻿using Avalonia.Data.Converters;
 using DsmSuite.DsmViewer.ViewModel.Main;
+using DsmSuite.DsmViewer.ViewModel.Search;
 using System;
 using System.Globalization;
 

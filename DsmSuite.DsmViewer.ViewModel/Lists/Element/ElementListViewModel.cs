@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using ReactiveUI;
 
-namespace DsmSuite.DsmViewer.ViewModel.Lists
+namespace DsmSuite.DsmViewer.ViewModel.Lists.Element
 {
     public class ElementListViewModel : ReactiveViewModelBase
     {

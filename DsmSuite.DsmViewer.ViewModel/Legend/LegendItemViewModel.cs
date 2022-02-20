@@ -1,6 +1,6 @@
 ﻿using DsmSuite.DsmViewer.ViewModel.Common;
 
-namespace DsmSuite.DsmViewer.ViewModel.Matrix
+namespace DsmSuite.DsmViewer.ViewModel.Legend
 {
     public class LegendItemViewModel : ReactiveViewModelBase
     {

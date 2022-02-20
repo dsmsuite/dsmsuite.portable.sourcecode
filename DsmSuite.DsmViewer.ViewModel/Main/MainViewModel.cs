@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using DsmSuite.DsmViewer.ViewModel.Common;
 using DsmSuite.DsmViewer.ViewModel.Matrix;
-using DsmSuite.DsmViewer.ViewModel.Lists;
 using System.Linq;
 using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.Model.Interfaces;
@@ -14,6 +13,10 @@ using DsmSuite.DsmViewer.ViewModel.Settings;
 using System.Reflection;
 using ReactiveUI;
 using System.Reactive.Linq;
+using DsmSuite.DsmViewer.ViewModel.Lists.Element;
+using DsmSuite.DsmViewer.ViewModel.Lists.Relation;
+using DsmSuite.DsmViewer.ViewModel.Lists.Action;
+using DsmSuite.DsmViewer.ViewModel.Search;
 
 namespace DsmSuite.DsmViewer.ViewModel.Main
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DsmSuite.DsmViewer.Model.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
 
-namespace DsmSuite.DsmViewer.ViewModel.Lists
+namespace DsmSuite.DsmViewer.ViewModel.Lists.Element
 {
     public class ElementListItemViewModel : ReactiveViewModelBase, IComparable
     {

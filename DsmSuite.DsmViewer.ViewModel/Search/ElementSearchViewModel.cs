@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using ReactiveUI;
 using System.Reactive.Linq;
 
-namespace DsmSuite.DsmViewer.ViewModel.Main
+namespace DsmSuite.DsmViewer.ViewModel.Search
 {
     public class ElementSearchViewModel : ReactiveViewModelBase
     {

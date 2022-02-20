@@ -1,7 +1,7 @@
 ﻿using DsmSuite.DsmViewer.Application.Interfaces;
 using DsmSuite.DsmViewer.ViewModel.Common;
 
-namespace DsmSuite.DsmViewer.ViewModel.Lists
+namespace DsmSuite.DsmViewer.ViewModel.Lists.Action
 {
     public class ActionListItemViewModel : ReactiveViewModelBase
     {

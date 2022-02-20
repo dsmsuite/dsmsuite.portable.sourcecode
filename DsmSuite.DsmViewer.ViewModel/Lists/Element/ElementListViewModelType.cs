@@ -1,4 +1,4 @@
-﻿namespace DsmSuite.DsmViewer.ViewModel.Lists
+﻿namespace DsmSuite.DsmViewer.ViewModel.Lists.Element
 {
     public enum ElementListViewModelType
     {

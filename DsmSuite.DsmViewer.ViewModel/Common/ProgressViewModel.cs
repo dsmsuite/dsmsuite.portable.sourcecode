@@ -3,7 +3,7 @@ using DsmSuite.DsmViewer.ViewModel.Common;
 using DsmSuite.Common.Util;
 using ReactiveUI;
 
-namespace DsmSuite.DsmViewer.ViewModel.Main
+namespace DsmSuite.DsmViewer.ViewModel.Common
 {
     public class ProgressViewModel : ReactiveViewModelBase
     {

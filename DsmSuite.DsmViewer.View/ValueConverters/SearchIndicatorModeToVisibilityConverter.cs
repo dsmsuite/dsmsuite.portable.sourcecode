@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Avalonia.Data.Converters;
+using DsmSuite.DsmViewer.ViewModel.Common;
 using DsmSuite.DsmViewer.ViewModel.Main;
 
 namespace DsmSuite.DsmViewer.View.ValueConverters

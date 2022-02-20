@@ -1,6 +1,7 @@
 ﻿using Avalonia.Data.Converters;
 using Avalonia.Media;
 using DsmSuite.DsmViewer.ViewModel.Main;
+using DsmSuite.DsmViewer.ViewModel.Search;
 using System;
 using System.Globalization;
 
@@ -25,7 +26,6 @@ namespace DsmSuite.DsmViewer.View.ValueConverters
 
             if (value != null)
             {
-
                 SearchState searchState = (SearchState)value;
                 switch (searchState)
                 {

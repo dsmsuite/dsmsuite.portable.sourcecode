@@ -4,7 +4,7 @@ using DsmSuite.DsmViewer.ViewModel.Common;
 using System.Text;
 using ReactiveUI;
 
-namespace DsmSuite.DsmViewer.ViewModel.Lists
+namespace DsmSuite.DsmViewer.ViewModel.Lists.Action
 {
     public class ActionListViewModel : ReactiveViewModelBase
     {

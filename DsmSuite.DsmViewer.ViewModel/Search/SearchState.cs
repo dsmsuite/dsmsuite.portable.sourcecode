@@ -1,4 +1,4 @@
-﻿namespace DsmSuite.DsmViewer.ViewModel.Main
+﻿namespace DsmSuite.DsmViewer.ViewModel.Search
 {
     public enum SearchState
     {

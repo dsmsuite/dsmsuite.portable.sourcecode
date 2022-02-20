@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using DsmSuite.DsmViewer.Model.Interfaces;
-using DsmSuite.DsmViewer.ViewModel.Lists;
+using DsmSuite.DsmViewer.ViewModel.Common;
+using DsmSuite.DsmViewer.ViewModel.Lists.Element;
+using DsmSuite.DsmViewer.ViewModel.Lists.Relation;
 using ReactiveUI;
 
 namespace DsmSuite.DsmViewer.ViewModel.Main

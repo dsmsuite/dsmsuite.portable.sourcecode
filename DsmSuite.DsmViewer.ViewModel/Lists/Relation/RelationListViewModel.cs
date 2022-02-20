@@ -9,7 +9,7 @@ using System;
 using ReactiveUI;
 using System.Reactive.Linq;
 
-namespace DsmSuite.DsmViewer.ViewModel.Lists
+namespace DsmSuite.DsmViewer.ViewModel.Lists.Relation
 {
     public class RelationListViewModel : ReactiveViewModelBase
     {
