@@ -35,7 +35,7 @@ namespace DsmSuite.Viewer.Main
         private async void OnFileOpenRequested(object? sender, System.EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filters.Add(new FileDialogFilter() { Name = "Model", Extensions = { ".dsm, .dsi" } });
+            dialog.Filters.Add(new FileDialogFilter() { Name = "Model", Extensions = { "dsm", "dsi" } });
             dialog.AllowMultiple = true;
 
             var result = await dialog.ShowAsync(this);
