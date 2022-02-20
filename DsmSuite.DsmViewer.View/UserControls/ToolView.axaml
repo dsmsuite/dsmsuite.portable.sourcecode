@@ -30,7 +30,7 @@
 
   <Grid ColumnDefinitions="Auto,*,80,Auto" RowDefinitions="Auto" >
     <StackPanel Grid.Column="0" Orientation="Horizontal">
-      <Button x:Name="OpenButton" Classes="toolbarImageButton" Content="{StaticResource OpenIcon}"/>
+      <Button x:Name="OpenButton" Classes="toolbarImageButton" Command="{Binding OpenFileCommand}" Content="{StaticResource OpenIcon}"/>
       <Button x:Name="SaveButton" Classes="toolbarImageButton" Command="{Binding SaveFileCommand}" Content="{StaticResource SaveIcon}" />
       <Separator Classes="toolbarSeparator" />
       <Button x:Name="HomeButton" Classes="toolbarImageButton" Command="{Binding HomeCommand}" Content="{StaticResource HomeIcon}"/>
@@ -38,7 +38,7 @@
       <Button x:Name="UpButton" Classes="toolbarImageButton" Command="{Binding MoveUpElementCommand}" Content="{StaticResource UpIcon}"/>
       <Button x:Name="DownButton" Classes="toolbarImageButton" Command="{Binding MoveDownElementCommand}" Content="{StaticResource DownIcon}"/>
       <Button x:Name="PartitionButton" Classes="toolbarImageButton" Command="{Binding SortElementCommand}" />
-      <ComboBox x:Name="PartitionAlgorithmComboBox" Classes="toolbarComboBox" Width="100" />
+      <ComboBox x:Name="PartitionAlgorithmComboBox" Classes="toolbarComboBox" Items="{Binding SupportedSortAlgorithms}" SelectedItem="{Binding SelectedSortAlgorithm}" Width="100" />
       <Button x:Name="LabelButton" Classes="toolbarImageButton"  Command="{Binding MakeSnapshotCommand}" Content="{StaticResource LabelIcon}"/>
       <Separator Classes="toolbarSeparator"/>
       <Button x:Name="UndoButton" Classes="toolbarImageButton" Command="{Binding UndoCommand}" Content="{StaticResource UndoIcon}"/>
@@ -49,7 +49,7 @@
       <Button x:Name="ZoomOutButton" Classes="toolbarImageButton" Command="{Binding ZoomOutCommand}" Content="{StaticResource ZoomOutIcon}"/>
       <Button x:Name="SnapshotButton" Classes="toolbarImageButton" Command="{Binding TakeScreenshotCommand}" Content="{StaticResource SnapshotIcon}"/>
       <Separator Classes="toolbarSeparator"/>
-      <ComboBox x:Name="IndicatorViewModeComboBox" Classes="toolbarComboBox" Width="100" />
+      <ComboBox x:Name="IndicatorViewModeComboBox" Classes="toolbarComboBox" Items="{Binding SupportedIndicatorViewModes}" SelectedItem="{Binding SelectedIndicatorViewMode}" Width="100" />
     </StackPanel>
     <uc:ElementSearchBox Grid.Column="1" DataContext="{Binding Path=ElementSearchViewModel}" />
     <Label x:Name="SearchResultLabel" Grid.Column="2"  Classes="toolbarLabel"  DataContext="{Binding Path=ElementSearchViewModel}" Content="{Binding SearchResult}" Width="80"/>

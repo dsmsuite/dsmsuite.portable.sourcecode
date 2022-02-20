@@ -34,6 +34,8 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             RelationsReportReady?.Invoke(this, viewModel);
         }
 
+        public event EventHandler FileOpenRequested;
+
         public event EventHandler<ElementEditViewModel> ElementEditStarted;
 
         public event EventHandler<SnapshotMakeViewModel> SnapshotMakeStarted;
@@ -72,7 +74,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             _application.Modified += OnModelModified;
             _application.ActionPerformed += OnActionPerformed;
 
-            //OpenFileCommand = ReactiveCommand.Create(OpenFileExecute, OpenFileCanExecute);
+            OpenFileCommand = ReactiveCommand.Create(OpenFileExecute, OpenFileCanExecute);
             SaveFileCommand = ReactiveCommand.Create(SaveFileExecute, SaveFileCanExecute);
 
             HomeCommand = ReactiveCommand.Create(HomeExecute, HomeCanExecute);
@@ -233,7 +235,7 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
 
         public ProgressViewModel ProgressViewModel => _progressViewModel;
 
-        private async void OpenFileExecute(object parameter)
+        public async void OpenFile(string filename)
         {
             var progress = new Progress<ProgressInfo>(p =>
             {
@@ -241,7 +243,6 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             });
 
             _progressViewModel.Action = "Reading";
-            string filename = parameter as string;
             if (filename != null)
             {
                 FileInfo fileInfo = new FileInfo(filename);
@@ -272,16 +273,16 @@ namespace DsmSuite.DsmViewer.ViewModel.Main
             }
         }
 
-        private bool OpenFileCanExecute(object parameter)
+        private void OpenFileExecute()
         {
-            string fileToOpen = parameter as string;
-            if (fileToOpen != null)
+            FileOpenRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        private IObservable<bool>? OpenFileCanExecute
+        {
+            get
             {
-                return File.Exists(fileToOpen);
-            }
-            else
-            {
-                return false;
+                return Observable.Return(true);
             }
         }
 
