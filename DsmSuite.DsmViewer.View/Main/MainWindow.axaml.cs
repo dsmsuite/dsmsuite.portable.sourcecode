@@ -79,9 +79,10 @@ namespace DsmSuite.Viewer.Main
         {
 
         }
-        private void OnSettingsVisible(object? sender, SettingsViewModel viewModel)
+
+        private void OnElementEditStarted(object? sender, ElementEditViewModel viewModel)
         {
-            //SettingsView view = new SettingsView { DataContext = viewModel };
+            //ElementEditDialog view = new ElementEditDialog { DataContext = viewModel };
             //view.ShowDialog();
         }
 
@@ -89,18 +90,6 @@ namespace DsmSuite.Viewer.Main
         {
             //ActionListView view = new ActionListView { DataContext = viewModel };
             //view.Show();
-        }
-
-        private void OnSnapshotMakeStarted(object? sender, SnapshotMakeViewModel viewModel)
-        {
-            //SnapshotCreateDialog view = new SnapshotCreateDialog { DataContext = viewModel };
-            //view.ShowDialog();
-        }
-
-        private void OnElementEditStarted(object? sender, ElementEditViewModel viewModel)
-        {
-            //ElementEditDialog view = new ElementEditDialog { DataContext = viewModel };
-            //view.ShowDialog();
         }
 
         private void OnElementsReportReady(object? sender, ElementListViewModel e)
@@ -142,6 +131,18 @@ namespace DsmSuite.Viewer.Main
             //    _progressWindow.Close();
             //    _progressWindow = null;
             //}
+        }
+
+        private void OnSettingsVisible(object? sender, SettingsViewModel viewModel)
+        {
+            //SettingsView view = new SettingsView { DataContext = viewModel };
+            //view.ShowDialog();
+        }
+
+        private void OnSnapshotMakeStarted(object? sender, SnapshotMakeViewModel viewModel)
+        {
+            //SnapshotCreateDialog view = new SnapshotCreateDialog { DataContext = viewModel };
+            //view.ShowDialog();
         }
 
         private void OnScreenshotRequested(object? sender, System.EventArgs e)
