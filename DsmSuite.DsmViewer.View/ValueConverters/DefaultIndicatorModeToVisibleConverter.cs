@@ -2,18 +2,17 @@
 using System.Globalization;
 using Avalonia.Data.Converters;
 using DsmSuite.DsmViewer.ViewModel.Common;
-using DsmSuite.DsmViewer.ViewModel.Main;
 
 namespace DsmSuite.DsmViewer.View.ValueConverters
 {
-    public class BookmarkIndicatorModeToVisibilityConverter : IValueConverter
+    public class DefaultIndicatorModeToVisibleConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value != null)
             {
                 IndicatorViewMode viewMode = (IndicatorViewMode)value;
-                return viewMode == IndicatorViewMode.Bookmarks;
+                return viewMode == IndicatorViewMode.Default;
             }
             else
             {

@@ -5,5 +5,26 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DsmSuite.Viewer.View.Settings.SettingsDialog"
         Title="Window7">
-  SettingsDialog!
+  <StackPanel Orientation="Vertical">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="50" />
+        <RowDefinition Height="40" />
+        <RowDefinition Height="44" />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="200" />
+        <ColumnDefinition Width="240" />
+      </Grid.ColumnDefinitions>
+      <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Application Settings" Margin="5"/>
+      <Label Grid.Row="1" Grid.Column="0" Content="Enable logging" Margin="5"/>
+      <CheckBox Grid.Row="1" Grid.Column="1" Margin="10" IsChecked="{Binding LogLevel, Mode=TwoWay}" HorizontalAlignment="Left"/>
+      <Label Grid.Row="2" Grid.Column="0" Content="Theme" Margin="5"/>
+      <ComboBox Grid.Row="2" Grid.Column="1" Margin="10" Width="100" Height="24" Items="{Binding SupportedThemeNames}" SelectedItem="{Binding SelectedThemeName}" HorizontalAlignment="Left"/>
+    </Grid>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+      <Button Content="Ok" Command="{Binding AcceptChangeCommand}" IsDefault="True"/>
+      <Button Content="Cancel" IsCancel="True" />
+    </StackPanel>
+  </StackPanel>
 </Window>

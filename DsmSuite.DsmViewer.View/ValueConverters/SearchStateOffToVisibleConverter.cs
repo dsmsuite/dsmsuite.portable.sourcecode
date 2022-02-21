@@ -1,18 +1,19 @@
 ﻿using Avalonia.Data.Converters;
-using DsmSuite.DsmViewer.Model.Interfaces;
+using DsmSuite.DsmViewer.ViewModel.Main;
+using DsmSuite.DsmViewer.ViewModel.Search;
 using System;
 using System.Globalization;
 
 namespace DsmSuite.DsmViewer.View.ValueConverters
 {
-    public class SearchElementNotFoundToVisibilityConverter : IValueConverter
+    public class SearchStateOffToVisibleConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value != null)
             {
-                IDsmElement foundElememt = (IDsmElement)value;
-                return foundElememt == null;
+                SearchState searchState = (SearchState)value;
+                return searchState == SearchState.Off;
             }
             else
             {

@@ -1,19 +1,19 @@
-﻿using System;
-using System.Globalization;
-using Avalonia.Data.Converters;
-using DsmSuite.DsmViewer.ViewModel.Common;
+﻿using Avalonia.Data.Converters;
 using DsmSuite.DsmViewer.ViewModel.Main;
+using DsmSuite.DsmViewer.ViewModel.Search;
+using System;
+using System.Globalization;
 
 namespace DsmSuite.DsmViewer.View.ValueConverters
 {
-    public class DefaultIndicatorModeToVisibilityConverter : IValueConverter
+    public class SearchStateNotOffToVisibleConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value != null)
             {
-                IndicatorViewMode viewMode = (IndicatorViewMode)value;
-                return viewMode == IndicatorViewMode.Default;
+                SearchState searchState = (SearchState)value;
+                return (searchState != SearchState.Off);
             }
             else
             {

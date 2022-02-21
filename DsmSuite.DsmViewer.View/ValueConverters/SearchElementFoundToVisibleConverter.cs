@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace DsmSuite.DsmViewer.View.ValueConverters
 {
-    public class SearchElementFoundToVisibilityConverter : IValueConverter
+    public class SearchElementFoundToVisibleConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {

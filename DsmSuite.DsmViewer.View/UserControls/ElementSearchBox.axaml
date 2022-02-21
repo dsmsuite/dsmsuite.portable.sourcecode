@@ -2,7 +2,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vc="clr-namespace:DsmSuite.DsmViewer.View.ValueConverters" 
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DsmSuite.Viewer.View.UserControls.ElementSearchBox">
-  Welcome to Searchbox!
+  <UserControl.Resources>
+    <vc:SearchStateToColorConverter x:Key="SearchStateToColorConverter"/>
+    <vc:SearchElementNotFoundToVisibleConverter x:Key="SearchElementNotFoundToVisibleConverter"/>
+    <vc:SearchElementFoundToVisibleConverter x:Key="SearchElementFoundToVisibleConverter"/>
+  </UserControl.Resources>
+  
+  <Border BorderBrush="{StaticResource ForegroundDisabledColor}" BorderThickness="0" Background="{StaticResource BackgroundControlColor}">
+    <Grid ColumnDefinitions="auto,*,auto,auto" RowDefinitions="Auto">
+      <Button Grid.Column="0"  />
+      <ComboBox Grid.Column="1" Items="{Binding SearchMatches}" Foreground="{Binding SearchState, Converter={StaticResource SearchStateToColorConverter}}" IsVisible="{Binding SelectedElement, Converter={StaticResource SearchElementNotFoundToVisibleConverter}}"/>
+      <TextBox Grid.Column="1" Text="{Binding SearchText, Mode=TwoWay}" IsVisible="{Binding SelectedElement, Converter={StaticResource SearchElementFoundToVisibleConverter}}"/>
+      <Button Grid.Column="2"  Command="{Binding ClearSearchCommand}" />
+      <ToggleButton Grid.Column="3" IsChecked="{Binding CaseSensitiveSearch}"/>
+    </Grid>
+  </Border>
 </UserControl>

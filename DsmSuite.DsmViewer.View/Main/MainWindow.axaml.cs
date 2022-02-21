@@ -45,21 +45,13 @@ namespace DsmSuite.Viewer.Main
             if (_mainViewModel != null)
             {
                 _mainViewModel.FileOpenRequested += OnFileOpenRequested;
-
-                DsmModel model = new DsmModel("Viewer", Assembly.GetExecutingAssembly());
-                DsmApplication application = new DsmApplication(model);
-                _mainViewModel = new MainViewModel(application);
                 _mainViewModel.ElementsReportReady += OnElementsReportReady;
                 _mainViewModel.RelationsReportReady += OnRelationsReportReady;
                 _mainViewModel.ProgressViewModel.BusyChanged += OnProgressViewModelBusyChanged;
-
                 _mainViewModel.ElementEditStarted += OnElementEditStarted;
-
                 _mainViewModel.SnapshotMakeStarted += OnSnapshotMakeStarted;
-
                 _mainViewModel.ActionsVisible += OnActionsVisible;
                 _mainViewModel.SettingsVisible += OnSettingsVisible;
-
                 _mainViewModel.ScreenshotRequested += OnScreenshotRequested;
             }
         }

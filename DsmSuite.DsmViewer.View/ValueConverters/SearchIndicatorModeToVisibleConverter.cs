@@ -6,7 +6,7 @@ using DsmSuite.DsmViewer.ViewModel.Main;
 
 namespace DsmSuite.DsmViewer.View.ValueConverters
 {
-    public class SearchIndicatorModeToVisibilityConverter : IValueConverter
+    public class SearchIndicatorModeToVisibleConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
