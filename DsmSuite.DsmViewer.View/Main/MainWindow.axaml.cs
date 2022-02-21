@@ -13,13 +13,15 @@ using System;
 using DsmSuite.DsmViewer.ViewModel.Lists.Action;
 using DsmSuite.DsmViewer.ViewModel.Lists.Element;
 using DsmSuite.DsmViewer.ViewModel.Lists.Relation;
+using DsmSuite.Viewer.View.Settings;
+using DsmSuite.Viewer.View.Windows;
 
 namespace DsmSuite.Viewer.Main
 {
     public partial class MainWindow : Window
     {
         private MainViewModel? _mainViewModel;
-        //private ProgressWindow? _progressWindow;
+        private ProgressWindow? _progressWindow;
 
         public MainWindow()
         {
@@ -114,29 +116,31 @@ namespace DsmSuite.Viewer.Main
 
         private void OnProgressViewModelBusyChanged(object? sender, bool visible)
         {
-            //if (visible)
-            //{
-            //    if (_progressWindow == null)
-            //    {
-            //        _progressWindow = new ProgressWindow
-            //        {
-            //            DataContext = _mainViewModel.ProgressViewModel,
-            //            Owner = this
-            //        };
-            //        _progressWindow.ShowDialog();
-            //    }
-            //}
-            //else
-            //{
-            //    _progressWindow.Close();
-            //    _progressWindow = null;
-            //}
+            if (visible)
+            {
+                if ((_progressWindow == null) && (_mainViewModel != null))
+                {
+                    _progressWindow = new ProgressWindow
+                    {
+                        DataContext = _mainViewModel.ProgressViewModel,
+                    };
+                    _progressWindow.Show();
+                }
+            }
+            else
+            {
+                if (_progressWindow != null)
+                {
+                    _progressWindow.Close();
+                    _progressWindow = null;
+                }
+            }
         }
 
         private void OnSettingsVisible(object? sender, SettingsViewModel viewModel)
         {
-            //SettingsView view = new SettingsView { DataContext = viewModel };
-            //view.ShowDialog();
+            SettingsDialog view = new SettingsDialog { DataContext = viewModel };
+            view.Show();
         }
 
         private void OnSnapshotMakeStarted(object? sender, SnapshotMakeViewModel viewModel)
