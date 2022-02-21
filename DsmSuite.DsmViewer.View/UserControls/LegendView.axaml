@@ -13,24 +13,24 @@
   
   <Grid Height="16" ColumnDefinitions="auto,auto,auto,auto,auto,auto" RowDefinitions="auto" >
     <StackPanel Grid.Column="0" Orientation="Horizontal" IsVisible="{Binding SelectedIndicatorViewMode, Converter={StaticResource DefaultIndicatorModeToVisibleConverter}}">
-      <Rectangle Width="10" Height="10" Fill="{StaticResource MatrixColorConsumer}" />
-      <TextBlock Grid.Column="1">Consumer</TextBlock>
+      <Rectangle Classes="legend" Fill="{StaticResource MatrixColorConsumer}" />
+      <TextBlock Classes="legend" Grid.Column="1">Consumer</TextBlock>
     </StackPanel>
     <StackPanel Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding SelectedIndicatorViewMode, Converter={StaticResource DefaultIndicatorModeToVisibleConverter}}">
-      <Rectangle Width="10" Height="10" Fill="{StaticResource MatrixColorProvider}"/>
-      <TextBlock Grid.Column="3">Provider</TextBlock>
+      <Rectangle Classes="legend" Fill="{StaticResource MatrixColorProvider}"/>
+      <TextBlock Classes="legend" Grid.Column="3">Provider</TextBlock>
     </StackPanel>
     <StackPanel Grid.Column="2" Orientation="Horizontal" IsVisible="{Binding SelectedIndicatorViewMode, Converter={StaticResource DefaultIndicatorModeToVisibleConverter}}">
-      <Rectangle Width="10" Height="10" Fill="{StaticResource MatrixColorCycle}"/>
-      <TextBlock Grid.Column="5">Cyclic</TextBlock>
+      <Rectangle Classes="legend" Fill="{StaticResource MatrixColorCycle}"/>
+      <TextBlock Classes="legend" Grid.Column="5">Cyclic</TextBlock>
     </StackPanel>
     <StackPanel Grid.Column="3" Orientation="Horizontal" IsVisible="{Binding SelectedIndicatorViewMode, Converter={StaticResource SearchIndicatorModeToVisibleConverter}}">
-      <Rectangle Width="10" Height="10" Fill="{StaticResource MatrixColorMatch}"/>
-      <TextBlock Grid.Column="7">Search match</TextBlock>
+      <Rectangle Classes="legend" Height="10" Fill="{StaticResource MatrixColorMatch}"/>
+      <TextBlock Classes="legend" Grid.Column="7">Search match</TextBlock>
     </StackPanel>
     <StackPanel Grid.Column="4" Orientation="Horizontal" IsVisible="{Binding SelectedIndicatorViewMode, Converter={StaticResource BookmarkIndicatorModeToVisibleConverter}}">
-      <Rectangle Width="10" Height="10" Fill="{StaticResource MatrixColorBookmark}"/>
-      <TextBlock Grid.Column="9">Bookmarked</TextBlock>
+      <Rectangle Classes="legend" Fill="{StaticResource MatrixColorBookmark}"/>
+      <TextBlock Classes="legend" Grid.Column="9">Bookmarked</TextBlock>
     </StackPanel>
   </Grid>
 </UserControl>
