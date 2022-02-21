@@ -132,14 +132,61 @@
   </Style>
 
   <!-- Legend styles -->
-  <Style Selector="Rectangle.legend">
+  <Style Selector="Rectangle.legend" >
     <Setter Property="Width" Value="7" />
     <Setter Property="Height" Value="7" />
     <Setter Property="Margin" Value="10,1,1,1" />
   </Style>
 
-  <Style Selector="TextBlock.legend">
+  <Style Selector="TextBlock.legend" >
     <Setter Property="Height" Value="16" />
     <Setter Property="Margin" Value="5,0,10,0" />
+  </Style>
+
+  <!-- Search styles -->
+  <Style Selector="Button.searchStart" >
+    <Setter Property="Background" Value="{StaticResource BackgroundControlColor}" />
+    <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+    <Setter Property="Width" Value="{StaticResource StandardEditControlHeight}" />
+    <Setter Property="Height" Value="{StaticResource StandardEditControlHeight}"/>
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Content" Value="{StaticResource SearchIcon}" />
+  </Style>
+
+  <Style Selector="ComboBox.searchInput" >
+    <Setter Property="Background" Value="{StaticResource BackgroundControlColor}" />
+    <Setter Property="Height" Value="{StaticResource StandardButtonSize}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ForegroundStandardColor}" />
+    <Setter Property="Height" Value="{StaticResource StandardEditControlHeight}" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+
+  <Style Selector="TextBox.searchResult" >
+    <Setter Property="Background" Value="{StaticResource BackgroundControlColor}" />
+    <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+    <Setter Property="Height" Value="{StaticResource StandardEditControlHeight}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ForegroundStandardColor}" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+
+  <Style Selector="Button.searchClear" >
+    <Setter Property="Background" Value="{StaticResource BackgroundControlColor}" />
+    <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+    <Setter Property="Padding" Value="3" />
+    <Setter Property="Width" Value="20" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Content" Value="{StaticResource DeleteIcon}" />
+  </Style>
+
+  <Style Selector="ToggleButton.searchCaseSensitive">
+    <Setter Property="Background" Value="{StaticResource BackgroundControlColor}" />
+    <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+    <Setter Property="Height" Value="{StaticResource StandardButtonSize}" />
+    <Setter Property="Width" Value="{StaticResource StandardButtonSize}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
   </Style>
 </Styles>
