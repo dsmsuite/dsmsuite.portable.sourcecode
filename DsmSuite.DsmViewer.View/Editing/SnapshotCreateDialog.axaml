@@ -4,6 +4,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DsmSuite.Viewer.View.Editing.SnapshotCreateDialog"
+        Height="240" 
+        Width="450"
         Title="SnapshotCreateDialog">
-  Welcome to SnapshotCreateDialog!
+  <StackPanel Orientation="Vertical">
+    <Grid ColumnDefinitions="100,340" RowDefinitions="auto,auto,auto,auto,auto,auto,auto">
+      <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+          <Button x:Name="Close"/>
+        </StackPanel>
+      </DockPanel>
+      <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Text="{Binding Title}" Margin="5"/>
+      <Label Grid.Row="2" Grid.Column="0"  Content="Description" Margin="5"/>
+      <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding Description}"/>
+      <TextBlock Grid.Row="3" Grid.Column="1" Margin="10" Text="{Binding Help}" Name="HelpTextBlock" Foreground="Red"/>
+      <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button Content="Ok" Command="{Binding AcceptChangeCommand}" IsDefault="True"/>
+        <Button Content="Cancel" IsCancel="True" />
+      </StackPanel>
+    </Grid>
+  </StackPanel>
 </Window>

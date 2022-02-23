@@ -2,8 +2,64 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:usercontrols="clr-namespace:DsmSuite.Viewer.View.UserControls"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DsmSuite.Viewer.View.Editing.RelationEditDialog"
+        Height="750"
+        Width="650"
         Title="RelationEditDialog">
-  Welcome to RelationEditDialog!
+  <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Vertical">
+    <Grid ColumnDefinitions="150,*" RowDefinitions="20,20">
+      <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+          <Button x:Name="Close" />
+        </StackPanel>
+      </DockPanel>
+      <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Text="{Binding Title}" Margin="5"/>
+    </Grid>
+    <TextBlock  Text="Consumer"/>
+    <Grid Margin="10" ColumnDefinitions="150,*,100" RowDefinitions="auto" DataContext="{Binding Path=ConsumerSearchViewModel}" IsVisible="{Binding SearchState, Converter={StaticResource SearchStateOffToVisibleConverter}}">
+      <Label Grid.Row="0" Grid.Column="0"  Content="Name" />
+      <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SearchText}"/>
+    </Grid>
+    <Grid Margin="10" ColumnDefinitions="150,*,100" RowDefinitions="auto,auto,auto" DataContext="{Binding Path=ConsumerSearchViewModel}" IsVisible="{Binding SearchState, Converter={StaticResource SearchStateNotOffToVisibleConverter}}">
+      <Label Grid.Row="0" Grid.Column="0" Content="Type filter"/>
+      <ComboBox Grid.Row="0" Grid.Column="1" Items="{Binding ElementTypes, Mode=OneWay}" SelectedItem="{Binding SelectedElementType}" />
+      <Label Grid.Row="1" Grid.Column="0" Content="Search path" />
+      <Label Grid.Row="1" Grid.Column="1" Content="{Binding SearchPath}" />
+      <Label Grid.Row="2" Grid.Column="0" Content="Name" />
+      <StackPanel Grid.Row="2" Grid.Column="1">
+        <usercontrols:ElementSearchBox/>
+      </StackPanel>
+      <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding SearchResult}"/>
+    </Grid>
+    <TextBlock Text="Provider"/>
+    <Grid Margin="10" ColumnDefinitions="150,*,100" RowDefinitions="auto" DataContext="{Binding Path=ProviderSearchViewModel}" IsVisible="{Binding SearchState, Converter={StaticResource SearchStateOffToVisibleConverter}}">
+      <Label Grid.Row="0" Grid.Column="0"  Content="Name" />
+      <TextBlock Grid.Row="0" Grid.Column="1"  Text="{Binding SearchText}"/>
+    </Grid>
+    <Grid Margin="10" ColumnDefinitions="150,*,100" RowDefinitions="auto,auto,auto" DataContext="{Binding Path=ProviderSearchViewModel}" IsVisible="{Binding SearchState, Converter={StaticResource SearchStateNotOffToVisibleConverter}}">
+      <Label Grid.Row="0" Grid.Column="0" Content="Type filter"/>
+      <ComboBox Grid.Row="0" Grid.Column="1" Items="{Binding ElementTypes, Mode=OneWay}" SelectedItem="{Binding SelectedElementType}" />
+      <Label Grid.Row="1" Grid.Column="0" Content="Search path" />
+      <Label Grid.Row="1" Grid.Column="1" Content="{Binding SearchPath}" />
+      <Label Grid.Row="2" Grid.Column="0" Content="Name"/>
+      <StackPanel Grid.Row="2" Grid.Column="1" >
+        <usercontrols:ElementSearchBox/>
+      </StackPanel>
+      <TextBlock Grid.Row="2" Grid.Column="2"  Text="{Binding SearchResult}"/>
+    </Grid>
+    <TextBlock Text="Relation"/>
+    <Grid Margin="10" ColumnDefinitions="150,*,100" RowDefinitions="auto,auto,auto,auto,auto">
+      <Label Grid.Row="0" Grid.Column="0" Content="Type"/>
+      <ComboBox Grid.Row="0" Grid.Column="1" Items="{Binding RelationTypes, Mode=OneWay}" SelectedItem="{Binding SelectedRelationType}" Name="TypeTextBox"/>
+      <Label Grid.Row="1" Grid.Column="0" Content="Weight"/>
+      <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Weight}" Name="WeightTextBox"/>
+      <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Help}" Name="HelpTextBlock" Foreground="Red"/>
+      <StackPanel Grid.Row="3"  Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button Content="Ok" Command="{Binding AcceptChangeCommand}" IsDefault="True"/>
+        <Button Content="Cancel" IsCancel="True" />
+      </StackPanel>
+    </Grid>
+  </StackPanel>
 </Window>

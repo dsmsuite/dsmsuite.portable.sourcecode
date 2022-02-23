@@ -150,7 +150,6 @@
     <Setter Property="Width" Value="{StaticResource StandardEditControlHeight}" />
     <Setter Property="Height" Value="{StaticResource StandardEditControlHeight}"/>
     <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="Content" Value="{StaticResource SearchIcon}" />
   </Style>
 
   <Style Selector="ComboBox.searchInput" >
