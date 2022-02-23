@@ -5,5 +5,29 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DsmSuite.Viewer.View.Lists.ActionListView"
         Title="ActionListView">
-  Welcome to ActionListView!
+  <Grid ColumnDefinitions="*" RowDefinitions="auto,auto,auto,*,auto,auto">
+    <DockPanel Grid.Row="0" >
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button x:Name="Close" />
+      </StackPanel>
+    </DockPanel>
+    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" Margin="5"/>
+    <ItemsRepeater Grid.Row="2" Items="{Binding Actions}" >
+      <!--<ItemsRepeater.View>
+        <GridView>
+          <GridViewColumn Header="Index" Width="20" DisplayMemberBinding="{Binding Index}" />
+          <GridViewColumn Header="Action" Width="200" DisplayMemberBinding="{Binding Action}" />
+          <GridViewColumn Header="Details" Width="600" DisplayMemberBinding="{Binding Details}" />
+        </GridView>
+      </ItemsRepeater.View>-->
+    </ItemsRepeater>
+    <DockPanel Grid.Row="3">
+      <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" HorizontalAlignment="Left">
+        <Button Content="Clear" Command="{Binding ClearCommand}"/>
+      </StackPanel>
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button Content="Copy" Command="{Binding CopyToClipboardCommand}"/>
+      </StackPanel>
+    </DockPanel>
+  </Grid>
 </Window>

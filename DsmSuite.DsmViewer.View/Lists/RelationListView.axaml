@@ -5,5 +5,38 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DsmSuite.Viewer.View.Lists.RelationListView"
         Title="RelationListView">
-  Welcome to RelationListView!
+  <Grid ColumnDefinitions="*" RowDefinitions="auto,auto,auto,*,auto,auto">
+    <DockPanel Grid.Row="0" >
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button x:Name="Close" />
+      </StackPanel>
+    </DockPanel>
+    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" Margin="5"/>
+    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding SubTitle}" Margin="5"/>
+    <ItemsRepeater Grid.Row="3" Items="{Binding Relations}">
+      <!--<ItemsRepeater.View>
+        <GridView>
+          <GridViewColumn Header="Index" Width="auto" DisplayMemberBinding="{Binding Path=Index}" />
+          <GridViewColumn Header="Cyclic" Width="auto" DisplayMemberBinding="{Binding Path=Cyclic}" />
+          <GridViewColumn Header="Consumer name" Width="auto" DisplayMemberBinding="{Binding Path=ConsumerName}" />
+          <GridViewColumn Header="Consumer type" Width="auto" DisplayMemberBinding="{Binding Path=ConsumerType}" />
+          <GridViewColumn Header="Provider name" Width="auto" DisplayMemberBinding="{Binding Path=ProviderName}" />
+          <GridViewColumn Header="Provider type" Width="auto" DisplayMemberBinding="{Binding Path=ProviderType}" />
+          <GridViewColumn Header="Relation type" Width="auto" DisplayMemberBinding="{Binding Path=RelationType}" />
+          <GridViewColumn Header="Relation weight" Width="auto" DisplayMemberBinding="{Binding Path=RelationWeight}" />
+          <GridViewColumn Header="Properties" Width="auto" DisplayMemberBinding="{Binding Properties}" />
+        </GridView>
+      </ItemsRepeater.View>-->
+    </ItemsRepeater>
+    <DockPanel Grid.Row="4">
+      <StackPanel DockPanel.Dock="Left" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left">
+        <Button Content="Delete" Command="{Binding DeleteRelationCommand}"/>
+        <Button Content="Edit" Command="{Binding EditRelationCommand}"/>
+        <Button  Content="Add" Command="{Binding AddRelationCommand}"/>
+      </StackPanel>
+      <StackPanel DockPanel.Dock="Left" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button Content="Copy" Command="{Binding CopyToClipboardCommand}"/>
+      </StackPanel>
+    </DockPanel>
+  </Grid>
 </Window>

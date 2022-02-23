@@ -5,5 +5,26 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DsmSuite.Viewer.View.Lists.ElementListView"
         Title="ElementListView">
-  Welcome to ElementListView!Window4
+  <Grid ColumnDefinitions="*" RowDefinitions="auto,auto,auto,*,auto,auto">
+    <DockPanel Grid.Row="0" >
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button x:Name="Close" />
+      </StackPanel>
+    </DockPanel>
+    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" Margin="5"/>
+    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding SubTitle}" Margin="5"/>
+    <ItemsRepeater Grid.Row="3" Items="{Binding Elements}">
+      <!--<ItemsRepeater.View>
+        <GridView>
+          <GridViewColumn Header="Index" Width="auto" DisplayMemberBinding="{Binding Index}" />
+          <GridViewColumn Header="Element name" Width="auto" DisplayMemberBinding="{Binding ElementName}" />
+          <GridViewColumn Header="Element type" Width="auto" DisplayMemberBinding="{Binding ElementType}" />
+          <GridViewColumn Header="Properties" Width="auto" DisplayMemberBinding="{Binding Properties}" />
+        </GridView>
+      </ItemsRepeater.View>-->
+    </ItemsRepeater>
+    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+      <Button Content="Copy" Command="{Binding CopyToClipboardCommand}"/>
+    </StackPanel>
+  </Grid>
 </Window>
